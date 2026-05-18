@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gelişmiş Yapılacaklar Listesi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="header">
+                <h2>Görev Yöneticisi</h2>
+                <button id="darkModeToggle" title="Karanlık Mod">🌙</button>
+            </div>
+
+            <div class="auth-container" style="margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);">
+                <div id="userProfile" style="display: none; align-items: center; gap: 10px; margin-bottom: 10px;">
+                    <img id="userAvatar" src="" alt="Avatar" style="width: 35px; height: 35px; border-radius: 50%;">
+                    <span id="userName" style="font-weight: 600; font-size: 0.9rem;"></span>
+                </div>
+                <button id="loginBtn" style="background-color: #4285F4; color: white; width: 100%;">Google ile Giriş Yap</button>
+                <button id="logoutBtn" style="background-color: #e11d48; color: white; width: 100%; display: none;">Çıkış Yap</button>
+            </div>
+
+            <div class="view-tabs">
+                <button id="viewActiveBtn" class="active-tab">Aktif Görevler</button>
+                <button id="viewCompletedBtn">Tamamlananlar</button>
+            </div>
+
+            <div class="tools-container">
+                <input type="text" id="searchInput" placeholder="Görevlerde ara...">
+                <select id="filterCategory">
+                    <option value="Tümü">Tüm Kategoriler</option>
+                    <option value="İş">İş</option>
+                    <option value="Kişisel">Kişisel</option>
+                    <option value="Eğitim">Eğitim</option>
+                </select>
+            </div>
+
+            <div class="input-container">
+                <textarea id="todoInput" placeholder="Görev detaylarını buraya yazın..." rows="3"></textarea>
+                
+                <div class="options-grid">
+                    <div class="option-item">
+                        <label>Kategori</label>
+                        <select id="todoCategory">
+                            <option value="İş">İş</option>
+                            <option value="Kişisel">Kişisel</option>
+                            <option value="Eğitim">Eğitim</option>
+                        </select>
+                    </div>
+                    <div class="option-item">
+                        <label>Öncelik</label>
+                        <select id="todoPriority">
+                            <option value="Düşük">Düşük</option>
+                            <option value="Orta" selected>Orta</option>
+                            <option value="Yüksek">Yüksek</option>
+                        </select>
+                    </div>
+                    <div class="option-item">
+                        <label>Termin</label>
+                        <input type="date" id="todoDate">
+                    </div>
+                    <div class="option-item">
+                        <label>Periyot (Tekrar)</label>
+                        <select id="todoRecurrence">
+                            <option value="none">Tek Seferlik</option>
+                            <option value="daily">Her Gün</option>
+                            <option value="weekly">Her Hafta</option>
+                            <option value="monthly">Her Ay</option>
+                        </select>
+                    </div>
+                    <div class="option-item" style="grid-column: span 2;">
+                        <label>Görsel</label>
+                        <input type="file" id="todoImage" accept="image/*">
+                    </div>
+                </div>
+                
+                <button id="addBtn">Görevi Ekle</button>
+            </div>
+
+            <button id="exportBtn" class="export-btn">Excel (CSV) Olarak İndir</button>
+        </aside>
+
+        <main class="main-content">
+            <ul id="todoList">
+            </ul>
+        </main>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>

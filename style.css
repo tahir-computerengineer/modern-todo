@@ -1,0 +1,271 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg-color: #f0f4f8;
+    --container-bg: #ffffff;
+    --text-color: #333333;
+    --border-color: #d1d5db;
+    --primary-color: #10b981;
+    --primary-hover: #059669;
+    --danger-color: #ef4444;
+    --danger-hover: #dc2626;
+    --item-bg: #f9fafb;
+}
+
+body.dark-mode {
+    --bg-color: #111827;
+    --container-bg: #1f2937;
+    --text-color: #f3f4f6;
+    --border-color: #374151;
+    --primary-color: #10b981;
+    --item-bg: #374151;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    padding: 2rem;
+    transition: background-color 0.3s;
+}
+
+/* Dashboard Düzeni */
+.dashboard-layout {
+    display: flex;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: flex-start;
+}
+
+/* Sol Panel (Sabit) */
+.sidebar {
+    flex: 0 0 380px;
+    background: var(--container-bg);
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 2rem;
+}
+
+/* Sağ Panel (Kaydırılabilir) */
+.main-content {
+    flex: 1;
+}
+
+/* Başlık ve Form Elemanları */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.view-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+}
+
+.view-tabs button {
+    flex: 1;
+    background-color: var(--container-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 12px;
+    font-size: 0.9rem;
+    border-radius: 8px;
+}
+
+.view-tabs button.active-tab {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
+}
+
+.tools-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+}
+
+.input-container {
+    background-color: var(--item-bg);
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+textarea, input[type="text"], input[type="date"], select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--container-bg);
+    color: var(--text-color);
+    font-size: 0.9rem;
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.option-item label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    display: block;
+}
+
+/* Butonlar */
+button {
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+#addBtn {
+    background-color: var(--primary-color);
+    color: white;
+    width: 100%;
+}
+
+.export-btn {
+    width: 100%;
+    margin-top: 1rem;
+    background-color: #4b5563;
+    color: white;
+}
+
+.complete-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+.complete-btn:hover { background-color: var(--primary-hover); }
+
+.delete-btn {
+    background-color: var(--danger-color);
+    color: white;
+}
+.delete-btn:hover { background-color: var(--danger-hover); }
+
+/* Görev Kartları */
+#todoList {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+li {
+    background: var(--container-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+}
+
+.task-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    align-items: center;
+}
+
+.task-content {
+    font-size: 1.1rem;
+    line-height: 1.5;
+}
+
+.badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    color: white;
+}
+
+.badge.cat-iş { background-color: #3b82f6; }
+.badge.cat-kişisel { background-color: #8b5cf6; }
+.badge.cat-eğitim { background-color: #f59e0b; }
+
+.badge.pri-yüksek { background-color: #ef4444; }
+.badge.pri-orta { background-color: #f59e0b; }
+.badge.pri-düşük { background-color: #10b981; }
+
+.task-img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.completion-note {
+    background-color: #fef3c7;
+    color: #92400e;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    margin: 5px 0;
+    border-left: 4px solid #f59e0b;
+}
+
+body.dark-mode .completion-note {
+    background-color: #422006;
+    color: #fde68a;
+    border-left-color: #d97706;
+}
+
+
+
+
+/* Responsive */
+@media (max-width: 900px) {
+    .dashboard-layout {
+        flex-direction: column;
+    }
+    .sidebar {
+        flex: none;
+        width: 100%;
+        position: static;
+    }
+}
+
+
+.auth-container button {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.auth-container button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+#userProfile img {
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
