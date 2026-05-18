@@ -1,4 +1,4 @@
-// Resmi ve sorunsuz çalışan Firebase 10.8.0 CDN bağlantıları
+// Firebase 10.8.0 CDN bağlantıları
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { 
     getFirestore, collection, addDoc, getDocs, query, where,

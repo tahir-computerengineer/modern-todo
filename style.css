@@ -43,7 +43,7 @@ body {
     align-items: flex-start;
 }
 
-/* Sol Panel (Sabit) */
+/* Sol Panel */
 .sidebar {
     flex: 0 0 380px;
     background: var(--container-bg);
@@ -54,7 +54,7 @@ body {
     top: 2rem;
 }
 
-/* Sağ Panel (Kaydırılabilir) */
+/* Sağ Panel */
 .main-content {
     flex: 1;
 }
