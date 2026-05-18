@@ -1,3 +1,4 @@
+// Resmi ve sorunsuz çalışan Firebase 10.8.0 CDN bağlantıları
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { 
     getFirestore, collection, addDoc, getDocs, query, where,
@@ -59,20 +60,20 @@ document.addEventListener('DOMContentLoaded', () => {
     onAuthStateChanged(auth, (user) => {
         if (user) {
             currentUser = user;
-            userName.textContent = user.displayName;
-            userAvatar.src = user.photoURL;
+            if(userName) userName.textContent = user.displayName;
+            if(userAvatar) userAvatar.src = user.photoURL;
             
-            userProfile.style.display = 'flex';
-            logoutBtn.style.display = 'block';
-            loginBtn.style.display = 'none';
+            if(userProfile) userProfile.style.display = 'flex';
+            if(logoutBtn) logoutBtn.style.display = 'block';
+            if(loginBtn) loginBtn.style.display = 'none';
             if(sidebarContent) sidebarContent.style.display = 'flex';
             
             loadTodosFromCloud();
         } else {
             currentUser = null;
-            userProfile.style.display = 'none';
-            logoutBtn.style.display = 'none';
-            loginBtn.style.display = 'block';
+            if(userProfile) userProfile.style.display = 'none';
+            if(logoutBtn) logoutBtn.style.display = 'none';
+            if(loginBtn) loginBtn.style.display = 'block';
             if(sidebarContent) sidebarContent.style.display = 'none';
             
             allTasks = [];
@@ -82,38 +83,46 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Giriş Yap
-loginBtn.addEventListener('click', async () => {
-    try {
-        await signInWithPopup(auth, provider);
-    } catch (error) {
-        console.error("Giriş hatası: ", error);
-        alert("Giriş yapılamadı!");
-    }
-});
+if(loginBtn) {
+    loginBtn.addEventListener('click', async () => {
+        try {
+            await signInWithPopup(auth, provider);
+        } catch (error) {
+            console.error("Giriş hatası: ", error);
+            alert("Giriş yapılamadı!");
+        }
+    });
+}
 
 // Çıkış Yap
-logoutBtn.addEventListener('click', async () => {
-    try {
-        await signOut(auth);
-    } catch (error) {
-        console.error("Çıkış hatası: ", error);
-    }
-});
+if(logoutBtn) {
+    logoutBtn.addEventListener('click', async () => {
+        try {
+            await signOut(auth);
+        } catch (error) {
+            console.error("Çıkış hatası: ", error);
+        }
+    });
+}
 
 // Sekme Geçişleri
-viewActiveBtn.addEventListener('click', () => {
-    currentView = 'active';
-    viewActiveBtn.classList.add('active-tab');
-    viewCompletedBtn.classList.remove('active-tab');
-    renderTodos();
-});
+if(viewActiveBtn) {
+    viewActiveBtn.addEventListener('click', () => {
+        currentView = 'active';
+        viewActiveBtn.classList.add('active-tab');
+        if(viewCompletedBtn) viewCompletedBtn.classList.remove('active-tab');
+        renderTodos();
+    });
+}
 
-viewCompletedBtn.addEventListener('click', () => {
-    currentView = 'completed';
-    viewCompletedBtn.classList.add('active-tab');
-    viewActiveBtn.classList.remove('active-tab');
-    renderTodos();
-});
+if(viewCompletedBtn) {
+    viewCompletedBtn.addEventListener('click', () => {
+        currentView = 'completed';
+        viewCompletedBtn.classList.add('active-tab');
+        if(viewActiveBtn) viewActiveBtn.classList.remove('active-tab');
+        renderTodos();
+    });
+}
 
 // Görev Ekleme
 async function addTask() {
@@ -150,13 +159,13 @@ async function addTask() {
         
         resetInputs();
         currentView = 'active';
-        viewActiveBtn.click(); 
+        if(viewActiveBtn) viewActiveBtn.click(); 
     } catch (error) {
         console.error("Hata: ", error);
     }
 }
 
-// Buluttan Veri Çekme (Sadece Aktif Kullanıcı)
+// Buluttan Veri Çekme
 async function loadTodosFromCloud() {
     if (!currentUser) return;
     try {
@@ -176,9 +185,10 @@ async function loadTodosFromCloud() {
 
 // Filtreleme ve Çizim
 function renderTodos() {
+    if(!todoList) return;
     todoList.innerHTML = "";
-    const searchText = searchInput.value.toLowerCase();
-    const filterCat = filterCategory.value;
+    const searchText = searchInput ? searchInput.value.toLowerCase() : "";
+    const filterCat = filterCategory ? filterCategory.value : "Tümü";
 
     const filteredTasks = allTasks.filter(task => {
         const matchesSearch = task.text.toLowerCase().includes(searchText);
@@ -223,8 +233,8 @@ function createTodoElement(task) {
         ${imgHtml}
         ${noteHtml}
         <div class="task-meta">
-			<span class="badge cat-${task.category.toLowerCase()}">${task.category}</span>			
-			<span class="badge pri-${task.priority.toLowerCase()}">${task.priority}</span>
+			<span class="badge cat-${task.category ? task.category.toLowerCase() : 'is'}">${task.category || 'İş'}</span>			
+			<span class="badge pri-${task.priority ? task.priority.toLowerCase() : 'orta'}">${task.priority || 'Orta'}</span>
             ${recBadge}			
 			${task.date ? `<span>📅 ${new Date(task.date).toLocaleDateString('tr-TR')}</span>` : ""}			
 			${timeHtml}
@@ -232,61 +242,67 @@ function createTodoElement(task) {
     `;
 
     if (currentView === 'active') {
-        li.querySelector('.complete-btn').addEventListener('click', async (e) => {
-            e.stopPropagation();
-            
-            const note = prompt("Görev tamamlandı! Eklemek istediğiniz bir not var mı? (Boş bırakabilirsiniz)");
-            if (note === null) return; 
-
-            task.completed = true;
-            task.completionNote = note;
-            
-            await updateDoc(doc(db, "todos", task.id), { 
-                completed: true,
-                completionNote: note
-            });
-
-            if (task.recurrence && task.recurrence !== 'none' && task.date) {
-                const nextDate = new Date(task.date);
-                if (task.recurrence === 'daily') nextDate.setDate(nextDate.getDate() + 1);
-                if (task.recurrence === 'weekly') nextDate.setDate(nextDate.getDate() + 7);
-                if (task.recurrence === 'monthly') nextDate.setMonth(nextDate.getMonth() + 1);
+        const compBtn = li.querySelector('.complete-btn');
+        if(compBtn) {
+            compBtn.addEventListener('click', async (e) => {
+                e.stopPropagation();
                 
-                const offset = nextDate.getTimezoneOffset();
-                const localNextDate = new Date(nextDate.getTime() - (offset*60*1000));
-                const nextDateStr = localNextDate.toISOString().split('T')[0];
+                const note = prompt("Görev tamamlandı! Eklemek istediğiniz bir not var mı? (Boş bırakabilirsiniz)");
+                if (note === null) return; 
 
-                const nextTask = {
-                    userId: currentUser.uid,
-                    text: task.text,
-                    category: task.category,
-                    priority: task.priority,
-                    date: nextDateStr,
-                    recurrence: task.recurrence,
-                    image: task.image,
-                    completed: false,
-                    completionNote: "",
-                    createdAt: new Date().toISOString()
-                };
+                task.completed = true;
+                task.completionNote = note;
+                
+                await updateDoc(doc(db, "todos", task.id), { 
+                    completed: true,
+                    completionNote: note
+                });
 
-                const docRef = await addDoc(collection(db, "todos"), nextTask);
-                nextTask.id = docRef.id;
-                allTasks.push(nextTask);
-            }
-            
-            renderTodos(); 
-        });
+                if (task.recurrence && task.recurrence !== 'none' && task.date) {
+                    const nextDate = new Date(task.date);
+                    if (task.recurrence === 'daily') nextDate.setDate(nextDate.getDate() + 1);
+                    if (task.recurrence === 'weekly') nextDate.setDate(nextDate.getDate() + 7);
+                    if (task.recurrence === 'monthly') nextDate.setMonth(nextDate.getMonth() + 1);
+                    
+                    const offset = nextDate.getTimezoneOffset();
+                    const localNextDate = new Date(nextDate.getTime() - (offset*60*1000));
+                    const nextDateStr = localNextDate.toISOString().split('T')[0];
+
+                    const nextTask = {
+                        userId: currentUser.uid,
+                        text: task.text,
+                        category: task.category,
+                        priority: task.priority,
+                        date: nextDateStr,
+                        recurrence: task.recurrence,
+                        image: task.image,
+                        completed: false,
+                        completionNote: "",
+                        createdAt: new Date().toISOString()
+                    };
+
+                    const docRef = await addDoc(collection(db, "todos"), nextTask);
+                    nextTask.id = docRef.id;
+                    allTasks.push(nextTask);
+                }
+                
+                renderTodos(); 
+            });
+        }
     }
 
     if (currentView === 'completed') {
-        li.querySelector('.delete-btn').addEventListener('click', async (e) => {
-            e.stopPropagation();
-            if(confirm("Bu geçmiş kaydı tamamen silmek istediğinize emin misiniz?")) {
-                allTasks = allTasks.filter(t => t.id !== task.id);
-                renderTodos();
-                await deleteDoc(doc(db, "todos", task.id));
-            }
-        });
+        const delBtn = li.querySelector('.delete-btn');
+        if(delBtn) {
+            delBtn.addEventListener('click', async (e) => {
+                e.stopPropagation();
+                if(confirm("Bu geçmiş kaydı tamamen silmek istediğinize emin misiniz?")) {
+                    allTasks = allTasks.filter(t => t.id !== task.id);
+                    renderTodos();
+                    await deleteDoc(doc(db, "todos", task.id));
+                }
+            });
+        }
     }
 
     todoList.appendChild(li);
@@ -311,11 +327,11 @@ const toBase64 = file => new Promise((resolve, reject) => {
 });
 
 function resetInputs() {
-    input.value = "";
-    dateInput.value = "";
-    imageInput.value = "";
-    priorityInput.value = "Orta";
-    recurrenceInput.value = "none";
+    if(input) input.value = "";
+    if(dateInput) dateInput.value = "";
+    if(imageInput) imageInput.value = "";
+    if(priorityInput) priorityInput.value = "Orta";
+    if(recurrenceInput) recurrenceInput.value = "none";
 }
 
 function exportToCSV() {
@@ -343,17 +359,19 @@ function exportToCSV() {
 function initDarkMode() {
     const isDark = localStorage.getItem('darkMode') === 'true';
     if (isDark) document.body.classList.add('dark-mode');
-    darkModeToggle.textContent = isDark ? "☀️" : "🌙";
+    if(darkModeToggle) darkModeToggle.textContent = isDark ? "☀️" : "🌙";
 }
 
-darkModeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    const isDark = document.body.classList.contains('dark-mode');
-    localStorage.setItem('darkMode', isDark);
-    darkModeToggle.textContent = isDark ? "☀️" : "🌙";
-});
+if(darkModeToggle) {
+    darkModeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
+        localStorage.setItem('darkMode', isDark);
+        darkModeToggle.textContent = isDark ? "☀️" : "🌙";
+    });
+}
 
-addBtn.addEventListener('click', addTask);
-searchInput.addEventListener('input', renderTodos);
-filterCategory.addEventListener('change', renderTodos);
-exportBtn.addEventListener('click', exportToCSV);
+if(addBtn) addBtn.addEventListener('click', addTask);
+if(searchInput) searchInput.addEventListener('input', renderTodos);
+if(filterCategory) filterCategory.addEventListener('change', renderTodos);
+if(exportBtn) exportBtn.addEventListener('click', exportToCSV);
