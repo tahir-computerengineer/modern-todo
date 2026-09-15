@@ -30,33 +30,34 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     min-height: 100vh;
-    padding: 1rem; /* Sayfa dış boşluğu azaltıldı */
+    padding: 1.5rem;
     transition: background-color 0.3s;
 }
 
 /* Dashboard Düzeni */
 .dashboard-layout {
     display: flex;
-    gap: 1.25rem;
-    max-width: 1300px; /* Genişlik biraz artırıldı */
+    gap: 1.5rem;
+    max-width: 1200px;
     margin: 0 auto;
     align-items: flex-start;
 }
 
 /* Sol Panel */
 .sidebar {
-    flex: 0 0 340px; /* Sol panel genişliği daraltıldı */
+    flex: 0 0 320px; /* Sol panel genişliği dengelendi */
     background: var(--container-bg);
     padding: 1rem;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     position: sticky;
-    top: 1rem;
+    top: 1.5rem;
 }
 
-/* Sağ Panel */
+/* Sağ Panel (Aşırı uzamayı engellemek için sınırlatıldı) */
 .main-content {
     flex: 1;
+    max-width: 800px; 
 }
 
 /* Başlık ve Form Elemanları */
@@ -161,7 +162,8 @@ button {
     background-color: var(--primary-color);
     color: white;
     white-space: nowrap;
-    padding: 5px 12px;
+    padding: 4px 10px;
+    font-size: 0.8rem;
 }
 .complete-btn:hover { background-color: var(--primary-hover); }
 
@@ -169,40 +171,44 @@ button {
     background-color: var(--danger-color);
     color: white;
     white-space: nowrap;
-    padding: 5px 12px;
+    padding: 4px 10px;
+    font-size: 0.8rem;
 }
 .delete-btn:hover { background-color: var(--danger-hover); }
 
-/* Görev Kartları (Kompakt Tasarım) */
+/* Görev Liste Düzeni */
 #todoList {
     list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem; /* Kartlar arası boşluk daraltıldı */
+    display: grid;
+    /* Kartları daha derli toplu yan yana 2'li yapmak isterseniz aşağıdaki satırı kullanabilirsiniz. Tekli kalmasını isterseniz 1fr bırakabilirsiniz. */
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 0.75rem;
 }
 
 li {
     background: var(--container-bg);
     border: 1px solid var(--border-color);
     border-radius: 8px;
-    padding: 0.6rem 0.9rem; /* Yükseklik ciddi oranda küçültüldü */
+    padding: 0.75rem;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    justify-content: space-between;
+    gap: 6px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.03);
 }
 
 .task-header {
     display: flex;
     justify-content: space-between;
-    gap: 12px;
-    align-items: center;
+    gap: 10px;
+    align-items: flex-start;
 }
 
 .task-content {
-    font-size: 0.95rem;
-    line-height: 1.3;
+    font-size: 0.9rem;
+    line-height: 1.35;
     font-weight: 500;
+    word-break: break-word;
 }
 
 /* Etiketler ve Meta Bilgisi */
@@ -212,6 +218,7 @@ li {
     flex-wrap: wrap;
     gap: 6px;
     font-size: 0.75rem;
+    margin-top: 4px;
 }
 
 .badge {
@@ -232,7 +239,7 @@ li {
 
 .task-img {
     width: 100%;
-    max-height: 150px;
+    max-height: 140px;
     object-fit: cover;
     border-radius: 6px;
     margin: 4px 0;
@@ -259,9 +266,10 @@ body.dark-mode .completion-note {
     .dashboard-layout {
         flex-direction: column;
     }
-    .sidebar {
+    .sidebar, .main-content {
         flex: none;
         width: 100%;
+        max-width: 100%;
         position: static;
     }
 }
