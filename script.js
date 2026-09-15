@@ -311,8 +311,14 @@ function createTodoElement(task) {
 function calculateRemaining(targetDate) {
     const today = new Date();
     today.setHours(0,0,0,0);
-    const target = new Date(targetDate);
-    const diffDays = Math.ceil((target - today) / (1000 * 60 * 60 * 24));
+    
+    // YYYY-AA-GG formatındaki metni yerel saate uygun ayrıştırıyoruz
+    const [year, month, day] = targetDate.split('-');
+    const target = new Date(year, month - 1, day);
+    target.setHours(0,0,0,0);
+
+    // Milisaniye farkını tam gün sayısına dönüştürme (Math.round ile)
+    const diffDays = Math.round((target - today) / (1000 * 60 * 60 * 24));
 
     if (diffDays < 0) return "Süresi Geçti!";
     if (diffDays === 0) return "Bugün Son!";
