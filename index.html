@@ -15,13 +15,13 @@
                 <button id="darkModeToggle" title="Karanlık Mod">🌙</button>
             </div>
 
-            <div class="auth-container" style="margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);">
-                <div id="userProfile" style="display: none; align-items: center; gap: 10px; margin-bottom: 10px;">
-                    <img id="userAvatar" src="" alt="Avatar" style="width: 35px; height: 35px; border-radius: 50%;">
-                    <span id="userName" style="font-weight: 600; font-size: 0.9rem;"></span>
+            <div class="auth-container">
+                <div id="userProfile" class="user-profile-box">
+                    <img id="userAvatar" src="" alt="Avatar">
+                    <span id="userName"></span>
                 </div>
-                <button id="loginBtn" style="background-color: #4285F4; color: white; width: 100%;">Google ile Giriş Yap</button>
-                <button id="logoutBtn" style="background-color: #e11d48; color: white; width: 100%; display: none;">Çıkış Yap</button>
+                <button id="loginBtn">Google ile Giriş Yap</button>
+                <button id="logoutBtn" title="Çıkış Yap"></button>
             </div>
 
             <div class="view-tabs">
@@ -72,15 +72,15 @@
                             <option value="monthly">Her Ay</option>
                         </select>
                     </div>
-                    <div class="option-item" style="grid-column: span 2;">
+                    <div class="option-item full-width">
                         <label for="todoImage">Görsel</label>
                         <input type="file" id="todoImage" accept="image/*">
                     </div>
                 </div>
                 
-                <div class="form-actions" style="display: flex; gap: 8px;">
-                    <button id="addBtn" style="flex: 1;">Görevi Ekle</button>
-                    <button id="cancelBtn" style="display: none; background-color: #6b7280; color: white; width: auto;">Vazgeç</button>
+                <div class="form-actions">
+                    <button id="addBtn">Görevi Ekle</button>
+                    <button id="cancelBtn">Vazgeç</button>
                 </div>
             </div>
 

@@ -7,7 +7,7 @@
 :root {
     --bg-color: #f0f4f8;
     --container-bg: #ffffff;
-    --text-color: #1f2937;
+    --text-color: #1e293b;
     --border-color: #e2e8f0;
     
     --primary-color: #10b981;
@@ -16,7 +16,10 @@
     --primary-border: #a7f3d0;
     --primary-text: #047857;
 
-    --danger-color: #ef4444;
+    --danger-bg: #fee2e2;
+    --danger-border: #fca5a5;
+    --danger-text: #ef4444;
+
     --item-bg: #f8fafc;
 }
 
@@ -32,18 +35,22 @@ body.dark-mode {
     --primary-border: #065f46;
     --primary-text: #a7f3d0;
 
+    --danger-bg: #451a1a;
+    --danger-border: #7f1d1d;
+    --danger-text: #fca5a5;
+
     --item-bg: #334155;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
     min-height: 100vh;
     padding: 1.5rem;
 }
 
-/* Dashboard Düzeni */
+/* Layout */
 .dashboard-layout {
     display: flex;
     gap: 1.5rem;
@@ -52,7 +59,6 @@ body {
     align-items: flex-start;
 }
 
-/* Sol Panel */
 .sidebar {
     flex: 0 0 330px;
     background: var(--container-bg);
@@ -69,7 +75,7 @@ body {
     max-width: 850px; 
 }
 
-/* Sol Panel Başlık */
+/* Header */
 .header {
     display: flex;
     justify-content: space-between;
@@ -79,145 +85,95 @@ body {
     border-bottom: 2px solid var(--primary-light);
 }
 
-.header h1, .header h2, .header div {
+.header h2 {
     font-size: 1.2rem;
     font-weight: 800;
-    color: var(--text-color);
 }
 
-/* Profil Kutusu Fix: "Tahir" Sol Tarafa, Avatarın Yanına */
-.profile-container, 
-#userProfile, 
-.sidebar > div:nth-child(2) {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    gap: 12px !important;
-    padding: 8px 12px !important;
-    margin-bottom: 1rem !important;
-    background: linear-gradient(135deg, var(--primary-light) 0%, #ffffff 100%) !important;
-    border: 1px solid var(--primary-border) !important;
-    border-radius: 12px !important;
+#darkModeToggle {
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
 }
 
-/* Profil Avatarı */
-.profile-container > *:first-child,
-#userProfile > *:first-child,
-.sidebar > div:nth-child(2) > *:first-child {
-    width: 36px !important;
-    height: 36px !important;
-    min-width: 36px !important;
-    border-radius: 50% !important;
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover)) !important;
-    color: white !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    font-weight: 700 !important;
-    font-size: 0.95rem !important;
-    box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3) !important;
+/* Profil ve Çıkış Kutusu (Düzenlendi) */
+.auth-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 1.2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
 }
 
-/* Tahir Yazısı */
-.profile-container > *:last-child,
-#userProfile > *:last-child,
-.sidebar > div:nth-child(2) > *:last-child {
-    margin-left: 0 !important;
-    margin-right: auto !important;
-    font-weight: 700 !important;
-    font-size: 0.95rem !important;
-    color: var(--primary-text) !important;
+.user-profile-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    background: var(--primary-light);
+    border: 1px solid var(--primary-border);
+    padding: 6px 12px;
+    border-radius: 10px;
 }
 
-/* ÇIKIŞ BUTONU -> Tamamıyla Kırmızı İkon Buton */
-.auth-container button,
-.logout-btn,
-button.logout-btn,
-.sidebar > button:nth-of-type(1) {
-    width: 38px !important;
-    height: 38px !important;
-    padding: 0 !important;
-    margin: 0 0 1rem auto !important; /* En sağa hizalar */
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    font-size: 0 !important; /* "Çıkış Yap" yazısını gizler */
-    background-color: #fee2e2 !important;
-    border: 1px solid #fca5a5 !important;
-    border-radius: 10px !important;
-    cursor: pointer !important;
-    transition: all 0.2s ease !important;
-    box-shadow: 0 2px 5px rgba(239, 68, 68, 0.15) !important;
+#userAvatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
-/* Çıkış Kapı/Çıkış Simgesi SVG */
-.auth-container button::before,
-.logout-btn::before,
-button.logout-btn::before,
-.sidebar > button:nth-of-type(1)::before {
-    content: "" !important;
-    width: 18px !important;
-    height: 18px !important;
-    display: block !important;
-    background-color: #dc2626 !important;
-    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4'%3E%3C/path%3E%3Cpolyline points='16 17 21 12 16 7'%3E%3C/polyline%3E%3Cline x1='21' y1='12' x2='9' y2='12'%3E%3C/line%3E%3C/svg%3E") no-repeat center / contain !important;
-    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4'%3E%3C/path%3E%3Cpolyline points='16 17 21 12 16 7'%3E%3C/polyline%3E%3Cline x1='21' y1='12' x2='9' y2='12'%3E%3C/line%3E%3C/svg%3E") no-repeat center / contain !important;
+#userName {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--primary-text);
 }
 
-.auth-container button:hover,
-.logout-btn:hover,
-button.logout-btn:hover,
-.sidebar > button:nth-of-type(1):hover {
-    background-color: #ef4444 !important;
-    transform: translateY(-2px) !important;
-    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3) !important;
+#loginBtn {
+    background-color: #4285F4;
+    color: white;
+    width: 100%;
+    padding: 9px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
 }
 
-.auth-container button:hover::before,
-.logout-btn:hover::before,
-button.logout-btn:hover::before,
-.sidebar > button:nth-of-type(1):hover::before {
-    background-color: #ffffff !important;
+/* Kırmızı İkon Çıkış Butonu */
+#logoutBtn {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    background-color: var(--danger-bg);
+    border: 1px solid var(--danger-border);
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
 }
 
-/* EXCEL İNDİR BUTONU -> Şık Yeşil İkon Buton (Renkli ve Metinli/Metinsiz Dengeli) */
-.export-btn,
-.sidebar > button:last-child {
-    width: 100% !important;
-    margin-top: 0.85rem !important;
-    background: linear-gradient(135deg, #10b981, #059669) !important;
-    color: #ffffff !important;
-    border: none !important;
-    padding: 10px 14px !important;
-    font-weight: 700 !important;
-    font-size: 0.85rem !important;
-    border-radius: 10px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 8px !important;
-    cursor: pointer !important;
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25) !important;
-    transition: all 0.2s ease !important;
+#logoutBtn::before {
+    content: "";
+    width: 18px;
+    height: 18px;
+    background-color: var(--danger-text);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4'%3E%3C/path%3E%3Cpolyline points='16 17 21 12 16 7'%3E%3C/polyline%3E%3Cline x1='21' y1='12' x2='9' y2='12'%3E%3C/line%3E%3C/svg%3E") no-repeat center / contain;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4'%3E%3C/path%3E%3Cpolyline points='16 17 21 12 16 7'%3E%3C/polyline%3E%3Cline x1='21' y1='12' x2='9' y2='12'%3E%3C/line%3E%3C/svg%3E") no-repeat center / contain;
 }
 
-/* Excel İndirme Dosya Simgesi SVG */
-.export-btn::before,
-.sidebar > button:last-child::before {
-    content: "" !important;
-    width: 18px !important;
-    height: 18px !important;
-    display: block !important;
-    background-color: #ffffff !important;
-    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'%3E%3C/path%3E%3Cpolyline points='7 10 12 15 17 10'%3E%3C/polyline%3E%3Cline x1='12' y1='15' x2='12' y2='3'%3E%3C/line%3E%3C/svg%3E") no-repeat center / contain !important;
-    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'%3E%3C/path%3E%3Cpolyline points='7 10 12 15 17 10'%3E%3C/polyline%3E%3Cline x1='12' y1='15' x2='12' y2='3'%3E%3C/line%3E%3C/svg%3E") no-repeat center / contain !important;
+#logoutBtn:hover {
+    background-color: #ef4444;
 }
 
-.export-btn:hover,
-.sidebar > button:last-child:hover {
-    background: linear-gradient(135deg, #059669, #047857) !important;
-    transform: translateY(-2px) !important;
-    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35) !important;
+#logoutBtn:hover::before {
+    background-color: #ffffff;
 }
 
 /* Görünüm Sekmeleri */
@@ -239,12 +195,13 @@ button.logout-btn:hover::before,
     font-size: 0.82rem;
     border-radius: 7px;
     font-weight: 600;
+    cursor: pointer;
     transition: all 0.2s ease;
 }
 
 .view-tabs button.active-tab {
-    background-color: var(--primary-color) !important;
-    color: white !important;
+    background-color: var(--primary-color);
+    color: white;
     font-weight: 700;
     box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
 }
@@ -255,7 +212,7 @@ button.logout-btn:hover::before,
     margin-bottom: 1rem;
 }
 
-/* Form Alanı */
+/* Form Kartı */
 .input-container {
     background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
     padding: 12px;
@@ -275,7 +232,6 @@ textarea, input[type="text"], input[type="date"], select {
     color: var(--text-color);
     font-size: 0.83rem;
     outline: none;
-    transition: all 0.2s;
 }
 
 textarea:focus, input[type="text"]:focus, input[type="date"]:focus, select:focus {
@@ -289,6 +245,10 @@ textarea:focus, input[type="text"]:focus, input[type="date"]:focus, select:focus
     gap: 6px;
 }
 
+.option-item.full-width {
+    grid-column: span 2;
+}
+
 .option-item label {
     font-size: 0.72rem;
     font-weight: 700;
@@ -297,91 +257,75 @@ textarea:focus, input[type="text"]:focus, input[type="date"]:focus, select:focus
     color: #475569;
 }
 
-/* Görevi Ekle Butonu */
+.form-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+}
+
 #addBtn {
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover)) !important;
-    color: #ffffff !important;
-    width: 100%;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+    color: #ffffff;
+    flex: 1;
     padding: 10px;
     font-weight: 700;
     font-size: 0.88rem;
     border-radius: 8px;
-    margin-top: 4px;
+    border: none;
+    cursor: pointer;
     box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }
 
-#addBtn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+#cancelBtn {
+    background-color: #6b7280;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
-/* Liste Yapısı */
+/* Excel İndir Butonu */
+.export-btn {
+    width: 100%;
+    margin-top: 0.85rem;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: #ffffff;
+    border: none;
+    padding: 10px 14px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+    transition: all 0.2s ease;
+}
+
+.export-btn::before {
+    content: "";
+    width: 18px;
+    height: 18px;
+    background-color: #ffffff;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'%3E%3C/path%3E%3Cpolyline points='7 10 12 15 17 10'%3E%3C/polyline%3E%3Cline x1='12' y1='15' x2='12' y2='3'%3E%3C/line%3E%3C/svg%3E") no-repeat center / contain;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'%3E%3C/path%3E%3Cpolyline points='7 10 12 15 17 10'%3E%3C/polyline%3E%3Cline x1='12' y1='15' x2='12' y2='3'%3E%3C/line%3E%3C/svg%3E") no-repeat center / contain;
+}
+
+.export-btn:hover {
+    background: linear-gradient(135deg, #059669, #047857);
+    transform: translateY(-1px);
+}
+
+/* Görev Kartları Liste Yapısı */
 #todoList {
     list-style: none;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 0.75rem;
 }
-
-li {
-    background: var(--container-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    padding: 0.85rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 8px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-}
-
-.task-header {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    align-items: flex-start;
-}
-
-.task-content {
-    font-size: 0.88rem;
-    line-height: 1.35;
-    font-weight: 500;
-}
-
-.task-meta {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 6px;
-    font-size: 0.75rem;
-}
-
-.badge {
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-size: 0.68rem;
-    color: white;
-    font-weight: 600;
-}
-
-.badge.cat-iş { background-color: #3b82f6; }
-.badge.cat-kişisel { background-color: #8b5cf6; }
-.badge.cat-eğitim { background-color: #f59e0b; }
-
-.badge.pri-yüksek { background-color: #ef4444; }
-.badge.pri-orta { background-color: #f59e0b; }
-.badge.pri-düşük { background-color: #10b981; }
-
-.time-badge {
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-size: 0.7rem;
-    font-weight: 600;
-}
-
-.time-badge.time-normal { background-color: #f1f5f9; color: #475569; }
-.time-badge.time-warning { background-color: #fef3c7; color: #b45309; }
-.time-badge.time-danger { background-color: #fee2e2; color: #dc2626; }
 
 @media (max-width: 900px) {
     .dashboard-layout { flex-direction: column; }
