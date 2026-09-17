@@ -13,9 +13,9 @@
     /* Ana Yeşil Paleti */
     --primary-color: #10b981;
     --primary-hover: #059669;
-    --primary-light: #d1fae5; /* Açık pastel nane yeşili */
+    --primary-light: #d1fae5;
     --primary-light-border: #a7f3d0;
-    --primary-text: #059669; /* Açık arka plan üzeri koyu yazı */
+    --primary-text: #059669;
 
     --danger-color: #ef4444;
     --danger-hover: #dc2626;
@@ -100,7 +100,6 @@ body {
     transition: all 0.2s ease;
 }
 
-/* Güncellenen Aktif Sekme Görünümü */
 .view-tabs button.active-tab {
     background-color: var(--primary-light);
     color: var(--primary-text);
@@ -158,7 +157,7 @@ button {
     transition: all 0.2s ease;
 }
 
-/* Güncellenen Görevi Ekle Butonu */
+/* Görevi Ekle Butonu */
 #addBtn {
     background-color: var(--primary-light);
     color: var(--primary-text);
@@ -173,12 +172,42 @@ button {
     color: white;
 }
 
+/* Excel (CSV) Olarak İndir Butonu */
 .export-btn {
     width: 100%;
     margin-top: 0.75rem;
-    background-color: #4b5563;
-    color: white;
+    background-color: var(--primary-light);
+    color: var(--primary-text);
+    border: 1px solid var(--primary-light-border);
     padding: 8px;
+    font-weight: 700;
+}
+
+.export-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Çıkış Yap Butonu */
+.auth-container button,
+.logout-btn {
+    background-color: #fee2e2;
+    color: #dc2626;
+    border: 1px solid #fca5a5;
+    width: 100%;
+    margin-top: 0.4rem;
+    font-size: 0.85rem;
+    border-radius: 6px;
+    padding: 8px;
+    font-weight: 700;
+    box-shadow: none;
+}
+
+.auth-container button:hover,
+.logout-btn:hover {
+    background-color: #ef4444;
+    color: white;
+    opacity: 1;
 }
 
 /* İkon Butonları Konteyneri */
@@ -231,7 +260,7 @@ button {
     color: white;
 }
 
-/* Dark Mode Uyumlu İkon Butonları */
+/* Dark Mode Uyumlu Butonlar */
 body.dark-mode .edit-btn { background-color: #78350f; color: #fef3c7; }
 body.dark-mode .edit-btn:hover { background-color: #f59e0b; color: #ffffff; }
 
@@ -240,6 +269,19 @@ body.dark-mode .complete-btn:hover { background-color: var(--primary-color); col
 
 body.dark-mode .delete-btn { background-color: #7f1d1d; color: #fecaca; }
 body.dark-mode .delete-btn:hover { background-color: #ef4444; color: #ffffff; }
+
+body.dark-mode .auth-container button,
+body.dark-mode .logout-btn {
+    background-color: #7f1d1d;
+    color: #fecaca;
+    border-color: #991b1b;
+}
+
+body.dark-mode .auth-container button:hover,
+body.dark-mode .logout-btn:hover {
+    background-color: #ef4444;
+    color: white;
+}
 
 /* Görev Liste Düzeni */
 #todoList {
@@ -325,31 +367,6 @@ body.dark-mode .completion-note {
     border-left-color: #d97706;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-    .dashboard-layout {
-        flex-direction: column;
-    }
-    .sidebar, .main-content {
-        flex: none;
-        width: 100%;
-        max-width: 100%;
-        position: static;
-    }
-}
-
-.auth-container button {
-    margin-top: 0.4rem;
-    font-size: 0.85rem;
-    border-radius: 6px;
-    padding: 8px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-.auth-container button:hover {
-    opacity: 0.9;
-}
-
 #userProfile img {
     border: 2px solid var(--primary-color);
 }
@@ -386,3 +403,16 @@ body.dark-mode .completion-note {
 body.dark-mode .time-badge.time-normal { background-color: #374151; color: #e5e7eb; }
 body.dark-mode .time-badge.time-warning { background-color: #78350f; color: #fef3c7; border-color: #92400e; }
 body.dark-mode .time-badge.time-danger { background-color: #7f1d1d; color: #fecaca; border-color: #991b1b; }
+
+/* Responsive */
+@media (max-width: 900px) {
+    .dashboard-layout {
+        flex-direction: column;
+    }
+    .sidebar, .main-content {
+        flex: none;
+        width: 100%;
+        max-width: 100%;
+        position: static;
+    }
+}
