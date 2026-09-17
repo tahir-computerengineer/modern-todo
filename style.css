@@ -83,62 +83,68 @@ body {
     border-bottom: 2px solid var(--border-color);
 }
 
-/* Profil Alanı (Bitişik ve Bütünleşik Yapı) */
-#userProfile {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 10px;
-    width: 100%;
-    margin-bottom: 1rem;
-    padding: 4px 0;
+/* Profil Kartı (Kompakt Tek Satır) */
+#userProfile,
+.user-card,
+.profile-container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 6px 10px !important;
+    margin-bottom: 0.85rem !important;
+    background-color: var(--item-bg) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 8px !important;
+    height: auto !important;
 }
 
+/* Sol Taraf: Logo ve İsim Bitişik */
 .profile-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.profile-info span,
-#userProfile .user-name {
-    font-weight: 700;
-    font-size: 0.95rem;
-    color: var(--text-color);
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
 }
 
 #userProfile img,
 .user-avatar,
 .sidebar .profile-avatar,
 .sidebar div[class*="avatar"] {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: none;
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
     background-color: var(--primary-color) !important;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
+    color: white !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-weight: 700 !important;
+    font-size: 0.85rem !important;
+    border: none !important;
 }
 
-/* Çıkış Yap Butonu (Sağa Hizalı Küçük İkincil Buton) */
+.profile-info span,
+#userProfile .user-name {
+    font-weight: 700 !important;
+    font-size: 0.9rem !important;
+    color: var(--text-color) !important;
+}
+
+/* Sağ Taraf: Çıkış Yap Butonu */
 .auth-container button,
 .logout-btn,
 button.logout-btn {
-    margin-left: auto !important;
+    margin: 0 !important;
+    padding: 4px 8px !important;
+    font-size: 0.75rem !important;
+    line-height: 1 !important;
     background: transparent !important;
     color: #ef4444 !important;
     border: 1px solid #fca5a5 !important;
-    padding: 4px 8px !important;
-    font-size: 0.75rem !important;
-    width: auto !important;
-    margin-top: 0 !important;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
+    border-radius: 6px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    white-space: nowrap !important;
 }
 
 .auth-container button:hover,
