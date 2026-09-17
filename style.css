@@ -15,7 +15,7 @@
     --primary-hover: #059669;
     --primary-light: #d1fae5;
     --primary-light-border: #a7f3d0;
-    --primary-text: #047857; /* Yazı rengi daha tok ve okunaklı yapıldı */
+    --primary-text: #047857;
 
     --danger-color: #ef4444;
     --danger-hover: #dc2626;
@@ -30,7 +30,7 @@ body.dark-mode {
     
     /* Dark Mode Yeşil Paleti */
     --primary-color: #10b981;
-    --primary-hover: #10b981;
+    --primary-hover: #059669;
     --primary-light: #064e3b;
     --primary-light-border: #065f46;
     --primary-text: #a7f3d0;
@@ -73,7 +73,7 @@ body {
     max-width: 800px; 
 }
 
-/* Başlık ve Form Elemanları */
+/* Başlık ve Profil Hizalaması */
 .header {
     display: flex;
     justify-content: space-between;
@@ -83,6 +83,55 @@ body {
     border-bottom: 2px solid var(--border-color);
 }
 
+#userProfile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#userProfile img,
+.user-avatar,
+.sidebar .profile-avatar,
+.sidebar div[class*="avatar"] {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-color);
+    background-color: var(--primary-color) !important;
+}
+
+/* Çıkış Yap Butonu - İnce İkincil Uyarı Stili */
+.auth-container button,
+.logout-btn,
+button.logout-btn {
+    background: transparent !important;
+    color: #ef4444 !important;
+    border: 1px solid #fca5a5 !important;
+    padding: 4px 10px !important;
+    font-size: 0.75rem !important;
+    width: auto !important;
+    margin-top: 0 !important;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.auth-container button:hover,
+.logout-btn:hover,
+button.logout-btn:hover {
+    background-color: #fee2e2 !important;
+    color: #dc2626 !important;
+}
+
+/* Görünüm Sekmeleri */
 .view-tabs {
     display: flex;
     gap: 8px;
@@ -113,6 +162,7 @@ body {
     margin-bottom: 1rem;
 }
 
+/* Form Elemanları */
 .input-container {
     background-color: var(--item-bg);
     padding: 10px;
@@ -146,7 +196,7 @@ textarea, input[type="text"], input[type="date"], select {
     display: block;
 }
 
-/* Genel Buton Stilleri */
+/* Genel Buton Yapısı */
 button {
     padding: 6px 12px;
     border-radius: 6px;
@@ -157,7 +207,7 @@ button {
     transition: all 0.2s ease;
 }
 
-/* Görevi Ekle Butonu - Tok Yeşil */
+/* Görevi Ekle Butonu - Odak Noktası */
 #addBtn {
     background-color: var(--primary-color) !important;
     color: white !important;
@@ -170,46 +220,23 @@ button {
     background-color: var(--primary-hover) !important;
 }
 
-/* Excel (CSV) Olarak İndir Butonu - Nötr Koyu Gri */
+/* Excel (CSV) İndir - İkincil Nötr Buton */
 .export-btn {
     width: 100%;
     margin-top: 0.75rem;
-    background-color: #4b5563 !important;
-    color: white !important;
-    border: none !important;
+    background-color: transparent !important;
+    color: #4b5563 !important;
+    border: 1px solid #d1d5db !important;
     padding: 8px;
     font-weight: 600;
 }
 
 .export-btn:hover {
-    background-color: #374151 !important;
+    background-color: #f3f4f6 !important;
+    color: #111827 !important;
 }
 
-/* Çıkış Yap Butonu - İnce ve Yumuşak Kırmızı */
-.auth-container button,
-.logout-btn,
-button.logout-btn {
-    background-color: #fee2e2 !important;
-    color: #dc2626 !important;
-    border: 1px solid #fca5a5 !important;
-    width: auto !important;
-    display: inline-block;
-    margin-top: 0.4rem;
-    font-size: 0.8rem;
-    border-radius: 6px;
-    padding: 5px 12px;
-    font-weight: 600;
-    box-shadow: none;
-}
-
-.auth-container button:hover,
-.logout-btn:hover,
-button.logout-btn:hover {
-    background-color: #ef4444 !important;
-    color: white !important;
-}
-
-/* İkon Butonları Konteyneri */
+/* İkon Butonları (Düzenle / Tamamla) */
 .action-btns {
     display: flex;
     gap: 4px;
@@ -217,17 +244,21 @@ button.logout-btn:hover {
     flex-shrink: 0;
 }
 
-/* İkon Butonları Ortak Yapısı */
 .edit-btn, .complete-btn, .delete-btn {
-    width: 30px;
-    height: 30px;
+    width: 26px !important;
+    height: 26px !important;
     padding: 0;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     border-radius: 6px;
     cursor: pointer;
+    opacity: 0.85;
     transition: all 0.2s ease;
+}
+
+.edit-btn:hover, .complete-btn:hover, .delete-btn:hover {
+    opacity: 1;
 }
 
 .edit-btn {
@@ -239,7 +270,6 @@ button.logout-btn:hover {
     color: white;
 }
 
-/* Tamamla Butonu */
 .complete-btn {
     background-color: var(--primary-light) !important;
     color: var(--primary-text) !important;
@@ -259,17 +289,29 @@ button.logout-btn:hover {
     color: white;
 }
 
-/* Profil İkonu Güncellemesi */
-#userProfile img,
-.user-avatar,
-.sidebar .profile-avatar,
-.sidebar div[class*="avatar"],
-.sidebar div[style*="background-color"] {
-    border: 2px solid var(--primary-color);
-    background-color: var(--primary-color) !important;
+/* Dark Mode Uyumu */
+body.dark-mode .export-btn {
+    color: #9ca3af !important;
+    border-color: #374151 !important;
 }
 
-/* Dark Mode Uyumlu Butonlar */
+body.dark-mode .export-btn:hover {
+    background-color: #374151 !important;
+    color: #f3f4f6 !important;
+}
+
+body.dark-mode .auth-container button,
+body.dark-mode .logout-btn {
+    border-color: #7f1d1d !important;
+    color: #fca5a5 !important;
+}
+
+body.dark-mode .auth-container button:hover,
+body.dark-mode .logout-btn:hover {
+    background-color: #7f1d1d !important;
+    color: white !important;
+}
+
 body.dark-mode .edit-btn { background-color: #78350f; color: #fef3c7; }
 body.dark-mode .edit-btn:hover { background-color: #f59e0b; color: #ffffff; }
 
@@ -278,19 +320,6 @@ body.dark-mode .complete-btn:hover { background-color: var(--primary-color) !imp
 
 body.dark-mode .delete-btn { background-color: #7f1d1d; color: #fecaca; }
 body.dark-mode .delete-btn:hover { background-color: #ef4444; color: #ffffff; }
-
-body.dark-mode .auth-container button,
-body.dark-mode .logout-btn {
-    background-color: #7f1d1d !important;
-    color: #fecaca !important;
-    border-color: #991b1b !important;
-}
-
-body.dark-mode .auth-container button:hover,
-body.dark-mode .logout-btn:hover {
-    background-color: #ef4444 !important;
-    color: white !important;
-}
 
 /* Görev Liste Düzeni */
 #todoList {
@@ -326,7 +355,7 @@ li {
     word-break: break-word;
 }
 
-/* Etiketler ve Meta Bilgisi */
+/* Etiketler ve Rozetler */
 .task-meta {
     display: flex;
     align-items: center;
@@ -352,31 +381,6 @@ li {
 .badge.pri-orta { background-color: #f59e0b; }
 .badge.pri-düşük { background-color: #10b981; }
 
-.task-img {
-    width: 100%;
-    max-height: 140px;
-    object-fit: cover;
-    border-radius: 6px;
-    margin: 4px 0;
-}
-
-.completion-note {
-    background-color: #fef3c7;
-    color: #92400e;
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-size: 0.8rem;
-    margin: 2px 0;
-    border-left: 3px solid #f59e0b;
-}
-
-body.dark-mode .completion-note {
-    background-color: #422006;
-    color: #fde68a;
-    border-left-color: #d97706;
-}
-
-/* Tarih ve Kalan Gün Rozetleri */
 .time-badge {
     padding: 2px 8px;
     border-radius: 12px;
@@ -387,23 +391,9 @@ body.dark-mode .completion-note {
     gap: 4px;
 }
 
-.time-badge.time-normal {
-    background-color: #e5e7eb;
-    color: #374151;
-}
-
-.time-badge.time-warning {
-    background-color: #fef3c7;
-    color: #b45309;
-    border: 1px solid #fde68a;
-}
-
-.time-badge.time-danger {
-    background-color: #fee2e2;
-    color: #dc2626;
-    border: 1px solid #fca5a5;
-    animation: pulse 2s infinite;
-}
+.time-badge.time-normal { background-color: #e5e7eb; color: #374151; }
+.time-badge.time-warning { background-color: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+.time-badge.time-danger { background-color: #fee2e2; color: #dc2626; border: 1px solid #fca5a5; }
 
 body.dark-mode .time-badge.time-normal { background-color: #374151; color: #e5e7eb; }
 body.dark-mode .time-badge.time-warning { background-color: #78350f; color: #fef3c7; border-color: #92400e; }
