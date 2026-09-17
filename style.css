@@ -45,7 +45,7 @@ body {
 
 /* Sol Panel */
 .sidebar {
-    flex: 0 0 320px; /* Sol panel genişliği dengelendi */
+    flex: 0 0 320px;
     background: var(--container-bg);
     padding: 1rem;
     border-radius: 12px;
@@ -54,7 +54,7 @@ body {
     top: 1.5rem;
 }
 
-/* Sağ Panel (Aşırı uzamayı engellemek için sınırlatıldı) */
+/* Sağ Panel */
 .main-content {
     flex: 1;
     max-width: 800px; 
@@ -132,7 +132,7 @@ textarea, input[type="text"], input[type="date"], select {
     display: block;
 }
 
-/* Butonlar */
+/* Genel Buton Stilleri */
 button {
     padding: 6px 12px;
     border-radius: 6px;
@@ -158,29 +158,68 @@ button {
     padding: 8px;
 }
 
-.complete-btn {
-    background-color: var(--primary-color);
-    color: white;
-    white-space: nowrap;
-    padding: 4px 10px;
-    font-size: 0.8rem;
+/* İkon Butonları Konteyneri */
+.action-btns {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    flex-shrink: 0;
 }
-.complete-btn:hover { background-color: var(--primary-hover); }
+
+/* İkon Butonları Ortak Yapısı */
+.edit-btn, .complete-btn, .delete-btn {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.edit-btn {
+    background-color: #fef3c7;
+    color: #d97706;
+}
+.edit-btn:hover {
+    background-color: #f59e0b;
+    color: white;
+}
+
+.complete-btn {
+    background-color: #d1fae5;
+    color: #059669;
+}
+.complete-btn:hover {
+    background-color: #10b981;
+    color: white;
+}
 
 .delete-btn {
-    background-color: var(--danger-color);
-    color: white;
-    white-space: nowrap;
-    padding: 4px 10px;
-    font-size: 0.8rem;
+    background-color: #fee2e2;
+    color: #dc2626;
 }
-.delete-btn:hover { background-color: var(--danger-hover); }
+.delete-btn:hover {
+    background-color: #ef4444;
+    color: white;
+}
+
+/* Dark Mode Uyumlu İkon Butonları */
+body.dark-mode .edit-btn { background-color: #78350f; color: #fef3c7; }
+body.dark-mode .edit-btn:hover { background-color: #f59e0b; color: #ffffff; }
+
+body.dark-mode .complete-btn { background-color: #064e3b; color: #a7f3d0; }
+body.dark-mode .complete-btn:hover { background-color: #10b981; color: #ffffff; }
+
+body.dark-mode .delete-btn { background-color: #7f1d1d; color: #fecaca; }
+body.dark-mode .delete-btn:hover { background-color: #ef4444; color: #ffffff; }
 
 /* Görev Liste Düzeni */
 #todoList {
     list-style: none;
     display: grid;
-    /* Kartları daha derli toplu yan yana 2'li yapmak isterseniz aşağıdaki satırı kullanabilirsiniz. Tekli kalmasını isterseniz 1fr bırakabilirsiniz. */
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 0.75rem;
 }
@@ -301,20 +340,17 @@ body.dark-mode .completion-note {
     gap: 4px;
 }
 
-/* Normal durum (2+ gün kalanlar) */
 .time-badge.time-normal {
     background-color: #e5e7eb;
     color: #374151;
 }
 
-/* Acil durum (1 gün kalanlar) */
 .time-badge.time-warning {
     background-color: #fef3c7;
     color: #b45309;
     border: 1px solid #fde68a;
 }
 
-/* Kritik / Bugün Son / Gecikmiş */
 .time-badge.time-danger {
     background-color: #fee2e2;
     color: #dc2626;

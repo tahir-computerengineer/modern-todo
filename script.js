@@ -52,7 +52,7 @@ const viewCompletedBtn = document.getElementById('viewCompletedBtn');
 let allTasks = []; 
 let currentView = 'active'; 
 let currentUser = null;
-let editingTaskId = null; // Düzenleme durumunu takip etmek için eklendi
+let editingTaskId = null;
 
 document.addEventListener('DOMContentLoaded', () => {
     initDarkMode();
@@ -125,7 +125,7 @@ if(viewCompletedBtn) {
     });
 }
 
-// Görev Ekleme VEYA Güncelleme (Tek Fonksiyon)
+// Görev Ekleme VEYA Güncelleme
 async function handleSaveTask() {
     if (!currentUser) return alert("İşlem yapmak için giriş yapmalısınız!");
     
@@ -228,7 +228,7 @@ function renderTodos() {
     filteredTasks.forEach(task => createTodoElement(task));
 }
 
-// Liste Elemanı Çıktısı
+// Liste Elemanı Çıktısı (İkonlu Yapı)
 function createTodoElement(task) {
     const li = document.createElement('li');
     if (task.completed) li.classList.add('completed');
@@ -249,12 +249,19 @@ function createTodoElement(task) {
         ? `<div class="completion-note">📝 <strong>Not:</strong> ${task.completionNote}</div>` 
         : "";
 
+    // Butonlar metin yerine SVG İkon ile değiştirildi
     const actionBtn = currentView === 'active' 
-        ? `<div style="display:flex; gap:4px;">
-            <button class="edit-btn" style="background:#f59e0b; color:white; padding:4px 8px; font-size:0.8rem;">Düzenle</button>
-            <button class="complete-btn">Tamamla</button>
+        ? `<div class="action-btns">
+            <button class="edit-btn" title="Düzenle">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+            </button>
+            <button class="complete-btn" title="Tamamla">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </button>
            </div>`
-        : `<button class="delete-btn">Kalıcı Sil</button>`;
+        : `<button class="delete-btn" title="Kalıcı Sil">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+           </button>`;
 
     li.innerHTML = `
         <div class="task-header">
@@ -273,7 +280,6 @@ function createTodoElement(task) {
     `;
 
     if (currentView === 'active') {
-        // --- DÜZENLEME BUTONU MANTIĞI ---
         const editBtn = li.querySelector('.edit-btn');
         if (editBtn) {
             editBtn.addEventListener('click', (e) => {
@@ -294,7 +300,6 @@ function createTodoElement(task) {
             });
         }
 
-        // --- TAMAMLA BUTONU MANTIĞI ---
         const compBtn = li.querySelector('.complete-btn');
         if(compBtn) {
             compBtn.addEventListener('click', async (e) => {
