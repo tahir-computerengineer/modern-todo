@@ -188,9 +188,10 @@ button {
     color: white;
 }
 
+/* Ana yeşiliniz: #10b981 */
 .complete-btn {
-    background-color: #d1fae5;
-    color: #059669;
+    background-color: rgba(16, 185, 129, 0.15); /* Aynı yeşilin saydam hali */
+    color: #059669; /* Aynı yeşilin koyu tonu */
 }
 .complete-btn:hover {
     background-color: #10b981;
