@@ -5,16 +5,17 @@
 }
 
 :root {
-    --bg-color: #f4f6f9;
+    --bg-color: #f0f4f8;
     --container-bg: #ffffff;
-    --text-color: #1e293b;
+    --text-color: #1f2937;
     --border-color: #e2e8f0;
     
-    /* Modern, Tok Yeşil Paleti */
-    --primary-color: #059669;
-    --primary-hover: #047857;
+    /* Canlı Yeşil Paleti */
+    --primary-color: #10b981;
+    --primary-hover: #059669;
     --primary-light: #ecfdf5;
     --primary-border: #a7f3d0;
+    --primary-text: #047857;
 
     --danger-color: #ef4444;
     --item-bg: #f8fafc;
@@ -30,19 +31,20 @@ body.dark-mode {
     --primary-hover: #059669;
     --primary-light: #064e3b;
     --primary-border: #065f46;
+    --primary-text: #a7f3d0;
 
     --item-bg: #334155;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
     min-height: 100vh;
     padding: 1.5rem;
 }
 
-/* Layout */
+/* Dashboard Düzeni */
 .dashboard-layout {
     display: flex;
     gap: 1.5rem;
@@ -51,12 +53,13 @@ body {
     align-items: flex-start;
 }
 
+/* Sol Panel (Şık ve Karakterli Kart) */
 .sidebar {
-    flex: 0 0 320px;
+    flex: 0 0 330px;
     background: var(--container-bg);
     padding: 1.25rem;
-    border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    border-radius: 16px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
     border: 1px solid var(--border-color);
     position: sticky;
     top: 1.5rem;
@@ -67,36 +70,34 @@ body {
     max-width: 850px; 
 }
 
-/* Sol Panel Başlık (Temiz ve Kutusuz) */
+/* Sol Panel Başlık */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid var(--border-color);
-    background: transparent !important;
-    border-radius: 0 !important;
+    margin-bottom: 0.85rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary-light);
 }
 
 .header h1, .header h2, .header div {
     font-size: 1.2rem;
-    font-weight: 700;
+    font-weight: 800;
     color: var(--text-color);
 }
 
-/* Profil Alanı (Tek Satır, Sade Yapı) */
+/* Profil Alanı (Tek Satır, Şık Rozet Yapısı) */
 #userProfile,
 .user-card,
 .profile-container {
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
-    padding: 6px 0 !important;
-    margin-bottom: 1.25rem !important;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
+    padding: 8px 12px !important;
+    margin-bottom: 1rem !important;
+    background: linear-gradient(135deg, var(--primary-light) 0%, #ffffff 100%) !important;
+    border: 1px solid var(--primary-border) !important;
+    border-radius: 12px !important;
 }
 
 .profile-info {
@@ -109,47 +110,50 @@ body {
 .user-avatar,
 .sidebar .profile-avatar,
 .sidebar div[class*="avatar"] {
-    width: 32px !important;
-    height: 32px !important;
+    width: 34px !important;
+    height: 34px !important;
     border-radius: 50% !important;
-    background: var(--primary-color) !important;
-    color: #ffffff !important;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover)) !important;
+    color: white !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     font-weight: 700 !important;
-    font-size: 0.85rem !important;
+    font-size: 0.9rem !important;
+    box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3) !important;
 }
 
 .profile-info span,
 #userProfile .user-name {
-    font-weight: 600 !important;
-    font-size: 0.9rem !important;
-    color: var(--text-color) !important;
+    font-weight: 700 !important;
+    font-size: 0.92rem !important;
+    color: var(--primary-text) !important;
 }
 
-/* Çıkış Yap Butonu (Sağ Kırmızı Metin Buton) */
+/* Çıkış Yap Butonu (Minimal Kırmızı Simge Buton) */
 .auth-container button,
 .logout-btn,
 button.logout-btn {
     margin: 0 !important;
-    padding: 4px 8px !important;
-    font-size: 0.75rem !important;
-    background: transparent !important;
-    color: #ef4444 !important;
-    border: 1px solid #fecaca !important;
-    border-radius: 6px !important;
-    font-weight: 600 !important;
+    padding: 6px 10px !important;
+    font-size: 0.8rem !important;
+    line-height: 1 !important;
+    background: #fee2e2 !important;
+    color: #dc2626 !important;
+    border: 1px solid #fca5a5 !important;
+    border-radius: 8px !important;
+    font-weight: 700 !important;
     cursor: pointer !important;
     transition: all 0.2s ease !important;
-    width: auto !important;
+    box-shadow: 0 1px 3px rgba(239, 68, 68, 0.15) !important;
 }
 
 .auth-container button:hover,
 .logout-btn:hover,
 button.logout-btn:hover {
-    background-color: #fee2e2 !important;
-    color: #dc2626 !important;
+    background-color: #ef4444 !important;
+    color: #ffffff !important;
+    transform: scale(1.05);
 }
 
 /* Görünüm Sekmeleri */
@@ -157,10 +161,9 @@ button.logout-btn:hover {
     display: flex;
     gap: 6px;
     margin-bottom: 1rem;
-    background: var(--item-bg);
+    background: #f1f5f9;
     padding: 4px;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
+    border-radius: 10px;
 }
 
 .view-tabs button {
@@ -168,17 +171,18 @@ button.logout-btn:hover {
     background: transparent;
     border: none;
     color: #64748b;
-    padding: 6px 10px;
-    font-size: 0.8rem;
-    border-radius: 6px;
+    padding: 7px 10px;
+    font-size: 0.82rem;
+    border-radius: 7px;
     font-weight: 600;
     transition: all 0.2s ease;
 }
 
 .view-tabs button.active-tab {
-    background-color: var(--container-bg) !important;
-    color: var(--primary-color) !important;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
 }
 
 .tools-container {
@@ -187,30 +191,33 @@ button.logout-btn:hover {
     margin-bottom: 1rem;
 }
 
-/* Form Elemanları */
+/* Renkli Görev Ekleme Form Paneli */
 .input-container {
-    background-color: var(--item-bg);
+    background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
     padding: 12px;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    border: 1px solid #cbd5e1;
     display: flex;
     flex-direction: column;
     gap: 8px;
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.6);
 }
 
 textarea, input[type="text"], input[type="date"], select {
     width: 100%;
-    padding: 7px 10px;
+    padding: 8px 10px;
     border: 1px solid var(--border-color);
-    border-radius: 6px;
+    border-radius: 8px;
     background: var(--container-bg);
     color: var(--text-color);
-    font-size: 0.82rem;
+    font-size: 0.83rem;
     outline: none;
+    transition: all 0.2s;
 }
 
 textarea:focus, input[type="text"]:focus, input[type="date"]:focus, select:focus {
     border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
 }
 
 .options-grid {
@@ -220,50 +227,53 @@ textarea:focus, input[type="text"]:focus, input[type="date"]:focus, select:focus
 }
 
 .option-item label {
-    font-size: 0.7rem;
-    font-weight: 600;
+    font-size: 0.72rem;
+    font-weight: 700;
     margin-bottom: 2px;
     display: block;
-    color: #64748b;
+    color: #475569;
 }
 
-/* Genel Butonlar */
-button {
-    padding: 6px 12px;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 0.82rem;
-    transition: all 0.2s ease;
-}
-
+/* Görevi Ekle Butonu */
 #addBtn {
-    background-color: var(--primary-color) !important;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover)) !important;
     color: #ffffff !important;
     width: 100%;
-    padding: 9px;
-    font-weight: 600;
+    padding: 10px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    border-radius: 8px;
     margin-top: 4px;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }
 
 #addBtn:hover {
-    background-color: var(--primary-hover) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
 }
 
+/* Renkli Excel (CSV) İndir Butonu */
 .export-btn {
     width: 100%;
-    margin-top: 0.75rem;
-    background-color: transparent !important;
-    color: #64748b !important;
-    border: 1px solid var(--border-color) !important;
-    padding: 8px;
-    font-weight: 600;
+    margin-top: 0.85rem;
+    background: var(--primary-light) !important;
+    color: var(--primary-text) !important;
+    border: 1px solid var(--primary-border) !important;
+    padding: 9px;
+    font-weight: 700;
+    font-size: 0.82rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.2s ease;
 }
 
 .export-btn:hover {
-    background-color: var(--item-bg) !important;
-    color: var(--text-color) !important;
+    background-color: #d1fae5 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.15);
 }
 
 /* Kart Aksiyon Butonları */
@@ -274,14 +284,14 @@ button {
 }
 
 .edit-btn, .complete-btn, .delete-btn {
-    width: 26px !important;
-    height: 26px !important;
+    width: 28px !important;
+    height: 28px !important;
     padding: 0;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     border-radius: 6px;
-    opacity: 0.85;
+    opacity: 0.9;
 }
 
 .edit-btn { background-color: #fef3c7; color: #d97706; }
@@ -299,13 +309,18 @@ button {
 li {
     background: var(--container-bg);
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 10px;
     padding: 0.85rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: 8px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    transition: transform 0.2s;
+}
+
+li:hover {
+    transform: translateY(-2px);
 }
 
 .task-header {
