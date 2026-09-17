@@ -73,7 +73,7 @@ body {
     max-width: 800px; 
 }
 
-/* Başlık ve Profil Hizalaması */
+/* Başlık */
 .header {
     display: flex;
     justify-content: space-between;
@@ -83,44 +83,61 @@ body {
     border-bottom: 2px solid var(--border-color);
 }
 
+/* Profil Alanı (Bitişik ve Bütünleşik Yapı) */
 #userProfile {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 10px;
     width: 100%;
     margin-bottom: 1rem;
+    padding: 4px 0;
 }
 
 .profile-info {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+}
+
+.profile-info span,
+#userProfile .user-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text-color);
 }
 
 #userProfile img,
 .user-avatar,
 .sidebar .profile-avatar,
 .sidebar div[class*="avatar"] {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
-    border: 2px solid var(--primary-color);
+    border: none;
     background-color: var(--primary-color) !important;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
 }
 
-/* Çıkış Yap Butonu - İnce İkincil Uyarı Stili */
+/* Çıkış Yap Butonu (Sağa Hizalı Küçük İkincil Buton) */
 .auth-container button,
 .logout-btn,
 button.logout-btn {
+    margin-left: auto !important;
     background: transparent !important;
     color: #ef4444 !important;
     border: 1px solid #fca5a5 !important;
-    padding: 4px 10px !important;
+    padding: 4px 8px !important;
     font-size: 0.75rem !important;
     width: auto !important;
     margin-top: 0 !important;
     border-radius: 6px;
     font-weight: 600;
+    cursor: pointer;
     transition: all 0.2s ease;
 }
 
