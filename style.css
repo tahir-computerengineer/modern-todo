@@ -10,7 +10,6 @@
     --text-color: #1f2937;
     --border-color: #e2e8f0;
     
-    /* Canlı Yeşil Paleti */
     --primary-color: #10b981;
     --primary-hover: #059669;
     --primary-light: #ecfdf5;
@@ -53,7 +52,7 @@ body {
     align-items: flex-start;
 }
 
-/* Sol Panel (Şık ve Karakterli Kart) */
+/* Sol Panel */
 .sidebar {
     flex: 0 0 330px;
     background: var(--container-bg);
@@ -75,7 +74,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.85rem;
+    margin-bottom: 1rem;
     padding-bottom: 0.5rem;
     border-bottom: 2px solid var(--primary-light);
 }
@@ -86,13 +85,14 @@ body {
     color: var(--text-color);
 }
 
-/* Profil Alanı (Tek Satır, Şık Rozet Yapısı) */
-#userProfile,
-.user-card,
-.profile-container {
+/* Profil Kutusu Fix: "Tahir" Sol Tarafa, Avatarın Yanına */
+.profile-container, 
+#userProfile, 
+.sidebar > div:nth-child(2) {
     display: flex !important;
     align-items: center !important;
-    justify-content: space-between !important;
+    justify-content: flex-start !important;
+    gap: 12px !important;
     padding: 8px 12px !important;
     margin-bottom: 1rem !important;
     background: linear-gradient(135deg, var(--primary-light) 0%, #ffffff 100%) !important;
@@ -100,18 +100,13 @@ body {
     border-radius: 12px !important;
 }
 
-.profile-info {
-    display: flex !important;
-    align-items: center !important;
-    gap: 10px !important;
-}
-
-#userProfile img,
-.user-avatar,
-.sidebar .profile-avatar,
-.sidebar div[class*="avatar"] {
-    width: 34px !important;
-    height: 34px !important;
+/* Profil Avatarı */
+.profile-container > *:first-child,
+#userProfile > *:first-child,
+.sidebar > div:nth-child(2) > *:first-child {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
     border-radius: 50% !important;
     background: linear-gradient(135deg, var(--primary-color), var(--primary-hover)) !important;
     color: white !important;
@@ -119,41 +114,110 @@ body {
     align-items: center !important;
     justify-content: center !important;
     font-weight: 700 !important;
-    font-size: 0.9rem !important;
+    font-size: 0.95rem !important;
     box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3) !important;
 }
 
-.profile-info span,
-#userProfile .user-name {
+/* Tahir Yazısı */
+.profile-container > *:last-child,
+#userProfile > *:last-child,
+.sidebar > div:nth-child(2) > *:last-child {
+    margin-left: 0 !important;
+    margin-right: auto !important;
     font-weight: 700 !important;
-    font-size: 0.92rem !important;
+    font-size: 0.95rem !important;
     color: var(--primary-text) !important;
 }
 
-/* Çıkış Yap Butonu (Minimal Kırmızı Simge Buton) */
+/* ÇIKIŞ BUTONU -> Tamamıyla Kırmızı İkon Buton */
 .auth-container button,
 .logout-btn,
-button.logout-btn {
-    margin: 0 !important;
-    padding: 6px 10px !important;
-    font-size: 0.8rem !important;
-    line-height: 1 !important;
-    background: #fee2e2 !important;
-    color: #dc2626 !important;
+button.logout-btn,
+.sidebar > button:nth-of-type(1) {
+    width: 38px !important;
+    height: 38px !important;
+    padding: 0 !important;
+    margin: 0 0 1rem auto !important; /* En sağa hizalar */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 0 !important; /* "Çıkış Yap" yazısını gizler */
+    background-color: #fee2e2 !important;
     border: 1px solid #fca5a5 !important;
-    border-radius: 8px !important;
-    font-weight: 700 !important;
+    border-radius: 10px !important;
     cursor: pointer !important;
     transition: all 0.2s ease !important;
-    box-shadow: 0 1px 3px rgba(239, 68, 68, 0.15) !important;
+    box-shadow: 0 2px 5px rgba(239, 68, 68, 0.15) !important;
+}
+
+/* Çıkış Kapı/Çıkış Simgesi SVG */
+.auth-container button::before,
+.logout-btn::before,
+button.logout-btn::before,
+.sidebar > button:nth-of-type(1)::before {
+    content: "" !important;
+    width: 18px !important;
+    height: 18px !important;
+    display: block !important;
+    background-color: #dc2626 !important;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4'%3E%3C/path%3E%3Cpolyline points='16 17 21 12 16 7'%3E%3C/polyline%3E%3Cline x1='21' y1='12' x2='9' y2='12'%3E%3C/line%3E%3C/svg%3E") no-repeat center / contain !important;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4'%3E%3C/path%3E%3Cpolyline points='16 17 21 12 16 7'%3E%3C/polyline%3E%3Cline x1='21' y1='12' x2='9' y2='12'%3E%3C/line%3E%3C/svg%3E") no-repeat center / contain !important;
 }
 
 .auth-container button:hover,
 .logout-btn:hover,
-button.logout-btn:hover {
+button.logout-btn:hover,
+.sidebar > button:nth-of-type(1):hover {
     background-color: #ef4444 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3) !important;
+}
+
+.auth-container button:hover::before,
+.logout-btn:hover::before,
+button.logout-btn:hover::before,
+.sidebar > button:nth-of-type(1):hover::before {
+    background-color: #ffffff !important;
+}
+
+/* EXCEL İNDİR BUTONU -> Şık Yeşil İkon Buton (Renkli ve Metinli/Metinsiz Dengeli) */
+.export-btn,
+.sidebar > button:last-child {
+    width: 100% !important;
+    margin-top: 0.85rem !important;
+    background: linear-gradient(135deg, #10b981, #059669) !important;
     color: #ffffff !important;
-    transform: scale(1.05);
+    border: none !important;
+    padding: 10px 14px !important;
+    font-weight: 700 !important;
+    font-size: 0.85rem !important;
+    border-radius: 10px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    cursor: pointer !important;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25) !important;
+    transition: all 0.2s ease !important;
+}
+
+/* Excel İndirme Dosya Simgesi SVG */
+.export-btn::before,
+.sidebar > button:last-child::before {
+    content: "" !important;
+    width: 18px !important;
+    height: 18px !important;
+    display: block !important;
+    background-color: #ffffff !important;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'%3E%3C/path%3E%3Cpolyline points='7 10 12 15 17 10'%3E%3C/polyline%3E%3Cline x1='12' y1='15' x2='12' y2='3'%3E%3C/line%3E%3C/svg%3E") no-repeat center / contain !important;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'%3E%3C/path%3E%3Cpolyline points='7 10 12 15 17 10'%3E%3C/polyline%3E%3Cline x1='12' y1='15' x2='12' y2='3'%3E%3C/line%3E%3C/svg%3E") no-repeat center / contain !important;
+}
+
+.export-btn:hover,
+.sidebar > button:last-child:hover {
+    background: linear-gradient(135deg, #059669, #047857) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35) !important;
 }
 
 /* Görünüm Sekmeleri */
@@ -191,7 +255,7 @@ button.logout-btn:hover {
     margin-bottom: 1rem;
 }
 
-/* Renkli Görev Ekleme Form Paneli */
+/* Form Alanı */
 .input-container {
     background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
     padding: 12px;
@@ -200,7 +264,6 @@ button.logout-btn:hover {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.6);
 }
 
 textarea, input[type="text"], input[type="date"], select {
@@ -252,53 +315,7 @@ textarea:focus, input[type="text"]:focus, input[type="date"]:focus, select:focus
     box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
 }
 
-/* Renkli Excel (CSV) İndir Butonu */
-.export-btn {
-    width: 100%;
-    margin-top: 0.85rem;
-    background: var(--primary-light) !important;
-    color: var(--primary-text) !important;
-    border: 1px solid var(--primary-border) !important;
-    padding: 9px;
-    font-weight: 700;
-    font-size: 0.82rem;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    transition: all 0.2s ease;
-}
-
-.export-btn:hover {
-    background-color: #d1fae5 !important;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.15);
-}
-
-/* Kart Aksiyon Butonları */
-.action-btns {
-    display: flex;
-    gap: 4px;
-    align-items: center;
-}
-
-.edit-btn, .complete-btn, .delete-btn {
-    width: 28px !important;
-    height: 28px !important;
-    padding: 0;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 6px;
-    opacity: 0.9;
-}
-
-.edit-btn { background-color: #fef3c7; color: #d97706; }
-.complete-btn { background-color: var(--primary-light); color: var(--primary-color); }
-.delete-btn { background-color: #fee2e2; color: #dc2626; }
-
-/* Görev Kartları Liste Düzeni */
+/* Liste Yapısı */
 #todoList {
     list-style: none;
     display: grid;
@@ -316,11 +333,6 @@ li {
     justify-content: space-between;
     gap: 8px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-    transition: transform 0.2s;
-}
-
-li:hover {
-    transform: translateY(-2px);
 }
 
 .task-header {
