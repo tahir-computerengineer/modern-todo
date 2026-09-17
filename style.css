@@ -9,8 +9,14 @@
     --container-bg: #ffffff;
     --text-color: #333333;
     --border-color: #d1d5db;
+    
+    /* Ana Yeşil Paleti */
     --primary-color: #10b981;
     --primary-hover: #059669;
+    --primary-light: #d1fae5; /* Açık pastel nane yeşili */
+    --primary-light-border: #a7f3d0;
+    --primary-text: #059669; /* Açık arka plan üzeri koyu yazı */
+
     --danger-color: #ef4444;
     --danger-hover: #dc2626;
     --item-bg: #f9fafb;
@@ -21,7 +27,14 @@ body.dark-mode {
     --container-bg: #1f2937;
     --text-color: #f3f4f6;
     --border-color: #374151;
+    
+    /* Dark Mode Yeşil Paleti */
     --primary-color: #10b981;
+    --primary-hover: #10b981;
+    --primary-light: #064e3b;
+    --primary-light-border: #065f46;
+    --primary-text: #a7f3d0;
+
     --item-bg: #374151;
 }
 
@@ -84,13 +97,15 @@ body {
     padding: 8px 10px;
     font-size: 0.85rem;
     border-radius: 6px;
+    transition: all 0.2s ease;
 }
 
+/* Güncellenen Aktif Sekme Görünümü */
 .view-tabs button.active-tab {
-    background-color: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
-    box-shadow: 0 2px 6px rgba(16, 185, 129, 0.2);
+    background-color: var(--primary-light);
+    color: var(--primary-text);
+    border: 1px solid var(--primary-light-border);
+    font-weight: 700;
 }
 
 .tools-container {
@@ -140,14 +155,22 @@ button {
     cursor: pointer;
     font-weight: 600;
     font-size: 0.85rem;
-    transition: 0.2s;
+    transition: all 0.2s ease;
 }
 
+/* Güncellenen Görevi Ekle Butonu */
 #addBtn {
-    background-color: var(--primary-color);
-    color: white;
+    background-color: var(--primary-light);
+    color: var(--primary-text);
+    border: 1px solid var(--primary-light-border);
     width: 100%;
     padding: 8px;
+    font-weight: 700;
+}
+
+#addBtn:hover {
+    background-color: var(--primary-color);
+    color: white;
 }
 
 .export-btn {
@@ -188,13 +211,14 @@ button {
     color: white;
 }
 
-/* Ana yeşiliniz: #10b981 */
+/* Tamamla Butonu */
 .complete-btn {
-    background-color: rgba(16, 185, 129, 0.15); /* Aynı yeşilin saydam hali */
-    color: #059669; /* Aynı yeşilin koyu tonu */
+    background-color: var(--primary-light);
+    color: var(--primary-text);
+    border: 1px solid var(--primary-light-border);
 }
 .complete-btn:hover {
-    background-color: #10b981;
+    background-color: var(--primary-color);
     color: white;
 }
 
@@ -211,8 +235,8 @@ button {
 body.dark-mode .edit-btn { background-color: #78350f; color: #fef3c7; }
 body.dark-mode .edit-btn:hover { background-color: #f59e0b; color: #ffffff; }
 
-body.dark-mode .complete-btn { background-color: #064e3b; color: #a7f3d0; }
-body.dark-mode .complete-btn:hover { background-color: #10b981; color: #ffffff; }
+body.dark-mode .complete-btn { background-color: var(--primary-light); color: var(--primary-text); }
+body.dark-mode .complete-btn:hover { background-color: var(--primary-color); color: #ffffff; }
 
 body.dark-mode .delete-btn { background-color: #7f1d1d; color: #fecaca; }
 body.dark-mode .delete-btn:hover { background-color: #ef4444; color: #ffffff; }
