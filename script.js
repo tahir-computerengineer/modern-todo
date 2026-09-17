@@ -52,6 +52,7 @@ const viewCompletedBtn = document.getElementById('viewCompletedBtn');
 let allTasks = []; 
 let currentView = 'active'; 
 let currentUser = null;
+let editingTaskId = null; // Düzenleme durumunu takip etmek için eklendi
 
 document.addEventListener('DOMContentLoaded', () => {
     initDarkMode();
@@ -124,14 +125,14 @@ if(viewCompletedBtn) {
     });
 }
 
-// Görev Ekleme
-async function addTask() {
-    if (!currentUser) return alert("Görev eklemek için giriş yapmalısınız!");
+// Görev Ekleme VEYA Güncelleme (Tek Fonksiyon)
+async function handleSaveTask() {
+    if (!currentUser) return alert("İşlem yapmak için giriş yapmalısınız!");
     
     const text = input.value.trim();
     if (!text) return alert("Lütfen görev detayını yazın!");
 
-    const file = imageInput.files[0];
+    const file = imageInput ? imageInput.files[0] : null;
     let imageData = null;
 
     if (file) {
@@ -139,6 +140,33 @@ async function addTask() {
         imageData = await toBase64(file);
     }
 
+    // DÜZENLEME MODU
+    if (editingTaskId) {
+        try {
+            const taskIndex = allTasks.findIndex(t => t.id === editingTaskId);
+            if (taskIndex !== -1) {
+                const updatePayload = {
+                    text: text,
+                    category: categoryInput.value,
+                    priority: priorityInput.value,
+                    date: dateInput.value,
+                    recurrence: recurrenceInput.value
+                };
+                if (imageData) updatePayload.image = imageData;
+
+                await updateDoc(doc(db, "todos", editingTaskId), updatePayload);
+
+                allTasks[taskIndex] = { ...allTasks[taskIndex], ...updatePayload };
+            }
+            resetInputs();
+            renderTodos();
+        } catch (error) {
+            console.error("Güncelleme hatası: ", error);
+        }
+        return;
+    }
+
+    // YENİ EKLEME MODU
     const newTask = {
         userId: currentUser.uid,
         text: text,
@@ -155,7 +183,7 @@ async function addTask() {
     try {
         const docRef = await addDoc(collection(db, "todos"), newTask);
         newTask.id = docRef.id; 
-        allTasks.push(newTask); 
+        allTasks.unshift(newTask); 
         
         resetInputs();
         currentView = 'active';
@@ -207,8 +235,8 @@ function createTodoElement(task) {
     
     let timeHtml = "";
     if (task.date && !task.completed) {
-        const remaining = calculateRemaining(task.date);
-        timeHtml = `<span class="time-left">⏱️ ${remaining}</span>`;
+        const rem = calculateRemaining(task.date);
+        timeHtml = `<span class="time-badge time-${rem.status}">⏱️ ${rem.text}</span>`;
     }
 
     const recLabels = { "daily": "Her Gün", "weekly": "Her Hafta", "monthly": "Her Ay" };
@@ -222,7 +250,10 @@ function createTodoElement(task) {
         : "";
 
     const actionBtn = currentView === 'active' 
-        ? `<button class="complete-btn">Tamamla</button>`
+        ? `<div style="display:flex; gap:4px;">
+            <button class="edit-btn" style="background:#f59e0b; color:white; padding:4px 8px; font-size:0.8rem;">Düzenle</button>
+            <button class="complete-btn">Tamamla</button>
+           </div>`
         : `<button class="delete-btn">Kalıcı Sil</button>`;
 
     li.innerHTML = `
@@ -233,15 +264,37 @@ function createTodoElement(task) {
         ${imgHtml}
         ${noteHtml}
         <div class="task-meta">
-			<span class="badge cat-${task.category ? task.category.toLowerCase() : 'is'}">${task.category || 'İş'}</span>			
-			<span class="badge pri-${task.priority ? task.priority.toLowerCase() : 'orta'}">${task.priority || 'Orta'}</span>
-            ${recBadge}			
-			${task.date ? `<span>📅 ${new Date(task.date).toLocaleDateString('tr-TR')}</span>` : ""}			
-			${timeHtml}
-		</div>
+            <span class="badge cat-${task.category ? task.category.toLowerCase() : 'is'}">${task.category || 'İş'}</span>         
+            <span class="badge pri-${task.priority ? task.priority.toLowerCase() : 'orta'}">${task.priority || 'Orta'}</span>
+            ${recBadge}         
+            ${task.date ? `<span>📅 ${new Date(task.date).toLocaleDateString('tr-TR')}</span>` : ""}         
+            ${timeHtml}
+        </div>
     `;
 
     if (currentView === 'active') {
+        // --- DÜZENLEME BUTONU MANTIĞI ---
+        const editBtn = li.querySelector('.edit-btn');
+        if (editBtn) {
+            editBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+
+                editingTaskId = task.id;
+
+                input.value = task.text;
+                categoryInput.value = task.category || "İş";
+                priorityInput.value = task.priority || "Orta";
+                dateInput.value = task.date || "";
+                recurrenceInput.value = task.recurrence || "none";
+
+                addBtn.textContent = "Görevi Güncelle";
+                addBtn.style.backgroundColor = "#f59e0b";
+                
+                input.focus();
+            });
+        }
+
+        // --- TAMAMLA BUTONU MANTIĞI ---
         const compBtn = li.querySelector('.complete-btn');
         if(compBtn) {
             compBtn.addEventListener('click', async (e) => {
@@ -283,7 +336,7 @@ function createTodoElement(task) {
 
                     const docRef = await addDoc(collection(db, "todos"), nextTask);
                     nextTask.id = docRef.id;
-                    allTasks.push(nextTask);
+                    allTasks.unshift(nextTask);
                 }
                 
                 renderTodos(); 
@@ -312,32 +365,37 @@ function calculateRemaining(targetDate) {
     const today = new Date();
     today.setHours(0,0,0,0);
     
-    // YYYY-AA-GG formatındaki metni yerel saate uygun ayrıştırıyoruz
     const [year, month, day] = targetDate.split('-');
     const target = new Date(year, month - 1, day);
     target.setHours(0,0,0,0);
 
-    // Milisaniye farkını tam gün sayısına dönüştürme (Math.round ile)
     const diffDays = Math.round((target - today) / (1000 * 60 * 60 * 24));
 
-    if (diffDays < 0) return "Süresi Geçti!";
-    if (diffDays === 0) return "Bugün Son!";
-    return `${diffDays} gün kaldı`;
+    if (diffDays < 0) return { text: "Süresi Geçti!", status: "danger" };
+    if (diffDays === 0) return { text: "Bugün Son!", status: "danger" };
+    if (diffDays === 1) return { text: "1 gün kaldı", status: "warning" };
+    return { text: `${diffDays} gün kaldı`, status: "normal" };
 }
 
 const toBase64 = file => new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
+    reader.onload = () => resolve(resolve.result || reader.result);
     reader.onerror = error => reject(error);
 });
 
 function resetInputs() {
+    editingTaskId = null;
     if(input) input.value = "";
     if(dateInput) dateInput.value = "";
     if(imageInput) imageInput.value = "";
     if(priorityInput) priorityInput.value = "Orta";
     if(recurrenceInput) recurrenceInput.value = "none";
+    
+    if(addBtn) {
+        addBtn.textContent = "Görevi Ekle";
+        addBtn.style.backgroundColor = "";
+    }
 }
 
 function exportToCSV() {
@@ -377,7 +435,7 @@ if(darkModeToggle) {
     });
 }
 
-if(addBtn) addBtn.addEventListener('click', addTask);
+if(addBtn) addBtn.addEventListener('click', handleSaveTask);
 if(searchInput) searchInput.addEventListener('input', renderTodos);
 if(filterCategory) filterCategory.addEventListener('change', renderTodos);
 if(exportBtn) exportBtn.addEventListener('click', exportToCSV);

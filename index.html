@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yapılacaklar Listesi</title>
+    <title>Görev Yöneticisi</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -44,7 +44,7 @@
                 
                 <div class="options-grid">
                     <div class="option-item">
-                        <label>Kategori</label>
+                        <label for="todoCategory">Kategori</label>
                         <select id="todoCategory">
                             <option value="İş">İş</option>
                             <option value="Kişisel">Kişisel</option>
@@ -52,7 +52,7 @@
                         </select>
                     </div>
                     <div class="option-item">
-                        <label>Öncelik</label>
+                        <label for="todoPriority">Öncelik</label>
                         <select id="todoPriority">
                             <option value="Düşük">Düşük</option>
                             <option value="Orta" selected>Orta</option>
@@ -60,11 +60,11 @@
                         </select>
                     </div>
                     <div class="option-item">
-                        <label>Termin</label>
+                        <label for="todoDate">Termin</label>
                         <input type="date" id="todoDate">
                     </div>
                     <div class="option-item">
-                        <label>Periyot (Tekrar)</label>
+                        <label for="todoRecurrence">Periyot (Tekrar)</label>
                         <select id="todoRecurrence">
                             <option value="none">Tek Seferlik</option>
                             <option value="daily">Her Gün</option>
@@ -73,12 +73,15 @@
                         </select>
                     </div>
                     <div class="option-item" style="grid-column: span 2;">
-                        <label>Görsel</label>
+                        <label for="todoImage">Görsel</label>
                         <input type="file" id="todoImage" accept="image/*">
                     </div>
                 </div>
                 
-                <button id="addBtn">Görevi Ekle</button>
+                <div class="form-actions" style="display: flex; gap: 8px;">
+                    <button id="addBtn" style="flex: 1;">Görevi Ekle</button>
+                    <button id="cancelBtn" style="display: none; background-color: #6b7280; color: white; width: auto;">Vazgeç</button>
+                </div>
             </div>
 
             <button id="exportBtn" class="export-btn">Excel (CSV) Olarak İndir</button>
