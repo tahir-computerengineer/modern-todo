@@ -441,7 +441,7 @@ function exportToCSV() {
 function initDarkMode() {
     const isDark = localStorage.getItem('darkMode') === 'true';
     if (isDark) document.body.classList.add('dark-mode');
-    if(darkModeToggle) darkModeToggle.textContent = isDark ? "☀️" : "🌙";
+    if(darkModeToggle) darkModeToggle.innerHTML = isDark ? '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/></svg>' : '<svg viewBox="0 0 24 24"><path d="M20.5 15.5A8.5 8.5 0 0 1 8.5 3.5a8.5 8.5 0 1 0 12 12Z"/></svg>';
 }
 
 if(darkModeToggle) {
@@ -449,7 +449,7 @@ if(darkModeToggle) {
         document.body.classList.toggle('dark-mode');
         const isDark = document.body.classList.contains('dark-mode');
         localStorage.setItem('darkMode', isDark);
-        darkModeToggle.textContent = isDark ? "☀️" : "🌙";
+        darkModeToggle.innerHTML = isDark ? '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/></svg>' : '<svg viewBox="0 0 24 24"><path d="M20.5 15.5A8.5 8.5 0 0 1 8.5 3.5a8.5 8.5 0 1 0 12 12Z"/></svg>';
     });
 }
 

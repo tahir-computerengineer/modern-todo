@@ -7,157 +7,100 @@
     <title>Görev Yöneticisi</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="app-shell">
-        <aside class="sidebar">
-            <div class="brand">
-                <div class="brand-mark">✓</div>
-                <div>
-                    <h1>Görev Yöneticisi</h1>
-                    <span>Gününü düzenle, işini tamamla.</span>
-                </div>
-            </div>
+<div class="page-bg">
+  <main class="app">
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-mark">✓</div>
+        <div>
+          <h1>Görev Yöneticisi</h1>
+          <p>Görevlerinizi tek yerde yönetin.</p>
+        </div>
+      </div>
 
-            <div class="account-card">
-                <div id="userProfile" class="user-profile">
-                    <img id="userAvatar" src="" alt="Profil">
-                    <div class="user-copy">
-                        <strong id="userName">Kullanıcı</strong>
-                        <span>Hesabım</span>
-                    </div>
-                </div>
-                <button id="loginBtn" class="login-btn">Google ile Giriş Yap</button>
-            </div>
+      <div class="header-right">
+        <div id="userProfile" class="user-profile">
+          <img id="userAvatar" src="" alt="Profil">
+          <div><strong id="userName">Kullanıcı</strong><span>Hesabım</span></div>
+        </div>
+        <button id="loginBtn" class="login-btn">Google ile Giriş Yap</button>
+        <div class="header-actions">
+          <button id="exportBtn" class="icon-btn" title="Excel / CSV dışa aktar" aria-label="Excel / CSV dışa aktar">
+            <svg viewBox="0 0 24 24"><path d="M4 4h10v16H4z"/><path d="M14 8h4l2 2v10H14"/><path d="M7 9l4 6M11 9l-4 6"/><path d="M14 4v4h4"/></svg>
+          </button>
+          <button id="darkModeToggle" class="icon-btn" title="Karanlık modu değiştir" aria-label="Karanlık modu değiştir">
+            <svg viewBox="0 0 24 24"><path d="M20.5 15.5A8.5 8.5 0 0 1 8.5 3.5a8.5 8.5 0 1 0 12 12Z"/></svg>
+          </button>
+          <button id="logoutBtn" class="icon-btn danger" title="Çıkış yap" aria-label="Çıkış yap">
+            <svg viewBox="0 0 24 24"><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/><path d="M21 3v18"/></svg>
+          </button>
+        </div>
+      </div>
+    </header>
 
-            <div class="sidebar-section">
-                <div class="section-label">GÖRÜNÜM</div>
-                <div class="view-tabs">
-                    <button id="viewActiveBtn" class="active-tab">
-                        <span class="tab-icon">○</span> Aktif Görevler
-                    </button>
-                    <button id="viewCompletedBtn">
-                        <span class="tab-icon">✓</span> Tamamlananlar
-                    </button>
-                </div>
-            </div>
+    <div class="divider"></div>
 
-            <div class="sidebar-section">
-                <div class="section-label">FİLTRELER</div>
-                <div class="filter-stack">
-                    <div class="field-wrap search-wrap">
-                        <span class="field-icon">⌕</span>
-                        <input type="text" id="searchInput" placeholder="Görevlerde ara...">
-                    </div>
-                    <div class="field-wrap">
-                        <select id="filterCategory">
-                            <option value="Tümü">Tüm Kategoriler</option>
-                            <option value="İş">İş</option>
-                            <option value="Kişisel">Kişisel</option>
-                            <option value="Eğitim">Eğitim</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
+    <section class="workspace-head">
+      <div>
+        <div class="eyebrow">ÇALIŞMA ALANI</div>
+        <h2 id="pageTitle">Aktif Görevler</h2>
+      </div>
+      <div class="summary"><span id="taskCount">0 görev</span></div>
+    </section>
 
-            <div class="sidebar-footer">
-                <span>Görevlerinizi tek yerde yönetin.</span>
-            </div>
-        </aside>
+    <section class="view-row">
+      <div class="view-tabs">
+        <button id="viewActiveBtn" class="active-tab"><span>○</span> Aktif Görevler</button>
+        <button id="viewCompletedBtn"><span>✓</span> Tamamlananlar</button>
+      </div>
+      <div class="filters">
+        <div class="search-box"><span>⌕</span><input id="searchInput" type="text" placeholder="Görevlerde ara..."></div>
+        <select id="filterCategory">
+          <option value="Tümü">Tüm Kategoriler</option>
+          <option value="İş">İş</option>
+          <option value="Kişisel">Kişisel</option>
+          <option value="Eğitim">Eğitim</option>
+        </select>
+      </div>
+    </section>
 
-        <main class="main-content">
-            <header class="topbar">
-                <div>
-                    <div class="eyebrow">ÇALIŞMA ALANI</div>
-                    <h2 id="pageTitle">Aktif Görevler</h2>
-                </div>
-                <div class="top-actions">
-                    <button id="exportBtn" class="icon-btn" title="Excel / CSV dışa aktar" aria-label="Excel / CSV dışa aktar">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h10v16H4z"/><path d="M14 8h4l2 2v10H14"/><path d="M7 9l4 6M11 9l-4 6"/><path d="M14 4v4h4"/></svg>
-                    </button>
-                    <button id="darkModeToggle" class="icon-btn" title="Karanlık modu değiştir" aria-label="Karanlık modu değiştir">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 15.5A8.5 8.5 0 0 1 8.5 3.5 8.5 8.5 0 1 0 20.5 15.5Z"/></svg>
-                    </button>
-                    <button id="logoutBtn" class="icon-btn danger" title="Çıkış yap" aria-label="Çıkış yap">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/><path d="M21 3v18"/></svg>
-                    </button>
-                </div>
-            </header>
+    <section class="composer-card">
+      <div class="card-title-row">
+        <div>
+          <h3 id="formTitle">Yeni görev oluştur</h3>
+          <p>Görevinizi detaylandırın ve planınıza ekleyin.</p>
+        </div>
+        <span class="ready"><i></i> Hazır</span>
+      </div>
+      <div class="composer-body">
+        <textarea id="todoInput" placeholder="Bugün ne yapmanız gerekiyor?" rows="3"></textarea>
+        <div class="form-grid">
+          <label>Kategori<select id="todoCategory"><option value="İş">İş</option><option value="Kişisel">Kişisel</option><option value="Eğitim">Eğitim</option></select></label>
+          <label>Öncelik<select id="todoPriority"><option value="Düşük">Düşük</option><option value="Orta" selected>Orta</option><option value="Yüksek">Yüksek</option></select></label>
+          <label>Termin<input type="date" id="todoDate"></label>
+          <label>Tekrar<select id="todoRecurrence"><option value="none">Tek Seferlik</option><option value="daily">Her Gün</option><option value="weekly">Her Hafta</option><option value="monthly">Her Ay</option></select></label>
+          <label class="file-field">Görsel <small>İsteğe bağlı</small><input type="file" id="todoImage" accept="image/*"></label>
+        </div>
+        <div class="form-actions">
+          <button id="cancelBtn" class="secondary-btn">Vazgeç</button>
+          <button id="addBtn" class="primary-btn"><span>+</span> Görevi Ekle</button>
+        </div>
+      </div>
+    </section>
 
-            <section class="composer-card">
-                <div class="composer-heading">
-                    <div>
-                        <h3 id="formTitle">Yeni görev oluştur</h3>
-                        <p>Görevinizi detaylandırın ve planınıza ekleyin.</p>
-                    </div>
-                    <span class="status-dot">● Hazır</span>
-                </div>
+    <section class="tasks-section">
+      <div class="tasks-heading"><div><div class="eyebrow">GÖREV LİSTESİ</div><h3>Planınız</h3></div></div>
+      <ul id="todoList"></ul>
+      <div id="emptyState" class="empty-state"><div class="empty-icon">✓</div><h3>Henüz görev yok</h3><p>Yeni bir görev oluşturarak başlayabilirsiniz.</p></div>
+    </section>
 
-                <div class="input-container">
-                    <textarea id="todoInput" placeholder="Bugün ne yapmanız gerekiyor?" rows="3"></textarea>
-
-                    <div class="options-grid">
-                        <div class="option-item">
-                            <label for="todoCategory">Kategori</label>
-                            <select id="todoCategory">
-                                <option value="İş">İş</option>
-                                <option value="Kişisel">Kişisel</option>
-                                <option value="Eğitim">Eğitim</option>
-                            </select>
-                        </div>
-                        <div class="option-item">
-                            <label for="todoPriority">Öncelik</label>
-                            <select id="todoPriority">
-                                <option value="Düşük">Düşük</option>
-                                <option value="Orta" selected>Orta</option>
-                                <option value="Yüksek">Yüksek</option>
-                            </select>
-                        </div>
-                        <div class="option-item">
-                            <label for="todoDate">Termin</label>
-                            <input type="date" id="todoDate">
-                        </div>
-                        <div class="option-item">
-                            <label for="todoRecurrence">Tekrar</label>
-                            <select id="todoRecurrence">
-                                <option value="none">Tek Seferlik</option>
-                                <option value="daily">Her Gün</option>
-                                <option value="weekly">Her Hafta</option>
-                                <option value="monthly">Her Ay</option>
-                            </select>
-                        </div>
-                        <div class="option-item full-width">
-                            <label for="todoImage">Görsel <span>İsteğe bağlı</span></label>
-                            <input type="file" id="todoImage" accept="image/*">
-                        </div>
-                    </div>
-
-                    <div class="form-actions">
-                        <button id="cancelBtn" class="secondary-btn">Vazgeç</button>
-                        <button id="addBtn" class="primary-btn"><span>+</span> Görevi Ekle</button>
-                    </div>
-                </div>
-            </section>
-
-            <section class="list-section">
-                <div class="list-toolbar">
-                    <div>
-                        <span class="list-caption">GÖREV LİSTESİ</span>
-                        <h3>Planınız</h3>
-                    </div>
-                    <span id="taskCount" class="task-count">0 görev</span>
-                </div>
-                <ul id="todoList"></ul>
-                <div id="emptyState" class="empty-state">
-                    <div class="empty-icon">✓</div>
-                    <h3>Henüz görev yok</h3>
-                    <p>Yeni bir görev oluşturarak başlayabilirsiniz.</p>
-                </div>
-            </section>
-        </main>
-    </div>
-    <script type="module" src="script.js"></script>
+    <footer class="app-footer">Görev Yöneticisi <span>•</span> Düzenli çalış, işleri zamanında tamamla.</footer>
+  </main>
+</div>
+<script type="module" src="script.js"></script>
 </body>
 </html>
