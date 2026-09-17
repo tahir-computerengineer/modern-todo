@@ -36,6 +36,11 @@ const searchInput = document.getElementById('searchInput');
 const filterCategory = document.getElementById('filterCategory');
 const exportBtn = document.getElementById('exportBtn');
 const darkModeToggle = document.getElementById('darkModeToggle');
+const cancelBtn = document.getElementById('cancelBtn');
+const formTitle = document.getElementById('formTitle');
+const pageTitle = document.getElementById('pageTitle');
+const taskCount = document.getElementById('taskCount');
+const emptyState = document.getElementById('emptyState');
 
 // Auth DOM Elemanları
 const loginBtn = document.getElementById('loginBtn');
@@ -62,7 +67,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (user) {
             currentUser = user;
             if(userName) userName.textContent = user.displayName;
-            if(userAvatar) userAvatar.src = user.photoURL;
+            if(userAvatar) {
+                userAvatar.src = user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.displayName || 'U')}&background=0f766e&color=fff`;
+            }
             
             if(userProfile) userProfile.style.display = 'flex';
             if(logoutBtn) logoutBtn.style.display = 'block';
@@ -219,13 +226,16 @@ function renderTodos() {
     const filterCat = filterCategory ? filterCategory.value : "Tümü";
 
     const filteredTasks = allTasks.filter(task => {
-        const matchesSearch = task.text.toLowerCase().includes(searchText);
+        const matchesSearch = (task.text || "").toLowerCase().includes(searchText);
         const matchesCat = filterCat === "Tümü" || task.category === filterCat;
         const matchesView = currentView === 'active' ? !task.completed : task.completed;
         return matchesSearch && matchesCat && matchesView;
     });
 
     filteredTasks.forEach(task => createTodoElement(task));
+    if(taskCount) taskCount.textContent = `${filteredTasks.length} görev`;
+    if(pageTitle) pageTitle.textContent = currentView === 'active' ? 'Aktif Görevler' : 'Tamamlananlar';
+    if(emptyState) emptyState.style.display = filteredTasks.length ? 'none' : 'flex';
 }
 
 // Liste Elemanı Çıktısı (İkonlu Yapı)
@@ -253,14 +263,14 @@ function createTodoElement(task) {
     const actionBtn = currentView === 'active' 
         ? `<div class="action-btns">
             <button class="edit-btn" title="Düzenle">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg>
             </button>
             <button class="complete-btn" title="Tamamla">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
             </button>
            </div>`
         : `<button class="delete-btn" title="Kalıcı Sil">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+            <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M9 6V4h6v2"/></svg>
            </button>`;
 
     li.innerHTML = `
@@ -293,7 +303,8 @@ function createTodoElement(task) {
                 dateInput.value = task.date || "";
                 recurrenceInput.value = task.recurrence || "none";
 
-                addBtn.textContent = "Görevi Güncelle";
+                addBtn.innerHTML = '<span>✓</span> Görevi Güncelle';
+                if(formTitle) formTitle.textContent = 'Görevi düzenle';
                 addBtn.style.backgroundColor = "#f59e0b";
                 
                 input.focus();
@@ -394,11 +405,13 @@ function resetInputs() {
     if(input) input.value = "";
     if(dateInput) dateInput.value = "";
     if(imageInput) imageInput.value = "";
+    if(categoryInput) categoryInput.value = "İş";
     if(priorityInput) priorityInput.value = "Orta";
     if(recurrenceInput) recurrenceInput.value = "none";
     
     if(addBtn) {
-        addBtn.textContent = "Görevi Ekle";
+        addBtn.innerHTML = '<span>+</span> Görevi Ekle';
+        if(formTitle) formTitle.textContent = 'Yeni görev oluştur';
         addBtn.style.backgroundColor = "";
     }
 }
@@ -441,6 +454,11 @@ if(darkModeToggle) {
 }
 
 if(addBtn) addBtn.addEventListener('click', handleSaveTask);
+if(cancelBtn) cancelBtn.addEventListener('click', () => {
+    resetInputs();
+    if(input) input.focus();
+});
+
 if(searchInput) searchInput.addEventListener('input', renderTodos);
 if(filterCategory) filterCategory.addEventListener('change', renderTodos);
 if(exportBtn) exportBtn.addEventListener('click', exportToCSV);
