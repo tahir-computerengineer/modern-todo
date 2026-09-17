@@ -10,12 +10,12 @@
     --text-color: #333333;
     --border-color: #d1d5db;
     
-    /* Ana Yeşil Paleti */
+    /* Tok ve Canlı Yeşil Paleti */
     --primary-color: #10b981;
     --primary-hover: #059669;
     --primary-light: #d1fae5;
     --primary-light-border: #a7f3d0;
-    --primary-text: #059669;
+    --primary-text: #047857; /* Yazı rengi daha tok ve okunaklı yapıldı */
 
     --danger-color: #ef4444;
     --danger-hover: #dc2626;
@@ -101,9 +101,9 @@ body {
 }
 
 .view-tabs button.active-tab {
-    background-color: var(--primary-light);
-    color: var(--primary-text);
-    border: 1px solid var(--primary-light-border);
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    border-color: var(--primary-color) !important;
     font-weight: 700;
 }
 
@@ -157,57 +157,56 @@ button {
     transition: all 0.2s ease;
 }
 
-/* Görevi Ekle Butonu */
+/* Görevi Ekle Butonu - Tok Yeşil */
 #addBtn {
-    background-color: var(--primary-light);
-    color: var(--primary-text);
-    border: 1px solid var(--primary-light-border);
+    background-color: var(--primary-color) !important;
+    color: white !important;
     width: 100%;
     padding: 8px;
     font-weight: 700;
 }
 
 #addBtn:hover {
-    background-color: var(--primary-color);
-    color: white;
+    background-color: var(--primary-hover) !important;
 }
 
-/* Excel (CSV) Olarak İndir Butonu */
+/* Excel (CSV) Olarak İndir Butonu - Nötr Koyu Gri */
 .export-btn {
     width: 100%;
     margin-top: 0.75rem;
-    background-color: var(--primary-light);
-    color: var(--primary-text);
-    border: 1px solid var(--primary-light-border);
+    background-color: #4b5563 !important;
+    color: white !important;
+    border: none !important;
     padding: 8px;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .export-btn:hover {
-    background-color: var(--primary-color);
-    color: white;
+    background-color: #374151 !important;
 }
 
-/* Çıkış Yap Butonu */
+/* Çıkış Yap Butonu - İnce ve Yumuşak Kırmızı */
 .auth-container button,
-.logout-btn {
-    background-color: #fee2e2;
-    color: #dc2626;
-    border: 1px solid #fca5a5;
-    width: 100%;
+.logout-btn,
+button.logout-btn {
+    background-color: #fee2e2 !important;
+    color: #dc2626 !important;
+    border: 1px solid #fca5a5 !important;
+    width: auto !important;
+    display: inline-block;
     margin-top: 0.4rem;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     border-radius: 6px;
-    padding: 8px;
-    font-weight: 700;
+    padding: 5px 12px;
+    font-weight: 600;
     box-shadow: none;
 }
 
 .auth-container button:hover,
-.logout-btn:hover {
-    background-color: #ef4444;
-    color: white;
-    opacity: 1;
+.logout-btn:hover,
+button.logout-btn:hover {
+    background-color: #ef4444 !important;
+    color: white !important;
 }
 
 /* İkon Butonları Konteyneri */
@@ -242,13 +241,13 @@ button {
 
 /* Tamamla Butonu */
 .complete-btn {
-    background-color: var(--primary-light);
-    color: var(--primary-text);
-    border: 1px solid var(--primary-light-border);
+    background-color: var(--primary-light) !important;
+    color: var(--primary-text) !important;
+    border: 1px solid var(--primary-light-border) !important;
 }
 .complete-btn:hover {
-    background-color: var(--primary-color);
-    color: white;
+    background-color: var(--primary-color) !important;
+    color: white !important;
 }
 
 .delete-btn {
@@ -260,27 +259,37 @@ button {
     color: white;
 }
 
+/* Profil İkonu Güncellemesi */
+#userProfile img,
+.user-avatar,
+.sidebar .profile-avatar,
+.sidebar div[class*="avatar"],
+.sidebar div[style*="background-color"] {
+    border: 2px solid var(--primary-color);
+    background-color: var(--primary-color) !important;
+}
+
 /* Dark Mode Uyumlu Butonlar */
 body.dark-mode .edit-btn { background-color: #78350f; color: #fef3c7; }
 body.dark-mode .edit-btn:hover { background-color: #f59e0b; color: #ffffff; }
 
-body.dark-mode .complete-btn { background-color: var(--primary-light); color: var(--primary-text); }
-body.dark-mode .complete-btn:hover { background-color: var(--primary-color); color: #ffffff; }
+body.dark-mode .complete-btn { background-color: var(--primary-light) !important; color: var(--primary-text) !important; }
+body.dark-mode .complete-btn:hover { background-color: var(--primary-color) !important; color: #ffffff !important; }
 
 body.dark-mode .delete-btn { background-color: #7f1d1d; color: #fecaca; }
 body.dark-mode .delete-btn:hover { background-color: #ef4444; color: #ffffff; }
 
 body.dark-mode .auth-container button,
 body.dark-mode .logout-btn {
-    background-color: #7f1d1d;
-    color: #fecaca;
-    border-color: #991b1b;
+    background-color: #7f1d1d !important;
+    color: #fecaca !important;
+    border-color: #991b1b !important;
 }
 
 body.dark-mode .auth-container button:hover,
 body.dark-mode .logout-btn:hover {
-    background-color: #ef4444;
-    color: white;
+    background-color: #ef4444 !important;
+    color: white !important;
 }
 
 /* Görev Liste Düzeni */
@@ -365,10 +374,6 @@ body.dark-mode .completion-note {
     background-color: #422006;
     color: #fde68a;
     border-left-color: #d97706;
-}
-
-#userProfile img {
-    border: 2px solid var(--primary-color);
 }
 
 /* Tarih ve Kalan Gün Rozetleri */
